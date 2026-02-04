@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Fuwalo Piano Learning Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        purple: '#CBB4FF',
+                        blue: '#B8E0FF',
+                        pink: '#FFD6EC',
+                        discord: '#5865F2',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #A58CD5 0%, #6A578D 100%);
+        }
+
+        .animated-gradient {
+            background: linear-gradient(-45deg, #A58CD5, #6A578D, #B29CBF, #CBB4FF);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .navbar {
+            background-color: rgba(248, 244, 252, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .mobile-menu {
+            display: none;
+        }
+
+        .mobile-menu.active {
+            display: block;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 50;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .mobile-menu li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-menu a {
+            display: block;
+            width: 100%;
+            padding: 0.5rem;
+            text-align: center;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .mobile-menu a:hover {
+            color: #7B61FF;
+        }
+
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .scroll-animate.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-toggle {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .section-toggle:hover {
+            background-color: rgba(123, 97, 255, 0.1);
+        }
+
+        .section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .section-content.active {
+            max-height: 2000px;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+    <!-- Navigation -->
+    <nav class="navbar py-4 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <a href="index.html" class="flex items-center">
+                            <i class="fas fa-music text-purple-500 text-3xl mr-2"></i>
+                            <span class="text-xl font-bold text-gray-900">Fuwalo</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-center space-x-4">
+                        <a href="index.html" class="text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="about.html" class="text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium">About</a>
+                        <a href="roadmap.html" class="text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium">Roadmap</a>
+                        <a href="community.html" class="text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium">Community</a>
+                        <a href="faq.html" class="text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium">FAQ</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button type="button" class="mobile-menu-button inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-purple-500 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div class="mobile-menu" id="mobile-menu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="roadmap.html">Roadmap</a></li>
+                    <li><a href="community.html">Community</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li>
+                        <a href="https://discord.gg/xDeDbSNDhq" class="bg-discord text-white px-4 py-2 rounded-md inline-block">
+                            <i class="fab fa-discord mr-2"></i>Join Discord
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="animated-gradient pt-32 pb-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center text-white">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6 scroll-animate">
+                    Terms of Service
+                </h1>
+                <p class="text-xl opacity-90 max-w-3xl mx-auto scroll-animate">
+                    Please read these terms carefully before using Fuwalo. By using our service, you agree to be bound by these terms.
+                </p>
+                <p class="text-sm opacity-80 mt-4 scroll-animate">Last updated: January 15, 2024</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Terms Content -->
+    <section class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="prose prose-lg max-w-none">
+                <div class="scroll-animate">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Agreement to Terms</h2>
+                    <p class="text-gray-600 mb-6">
+                        These Terms of Service ("Terms") govern your use of the Fuwalo mobile application and related services (collectively, the "Service") operated by Fuwalo ("we," "our," or "us").
+                    </p>
+                    <p class="text-gray-600 mb-8">
+                        By accessing or using our Service, you agree to be bound by these Terms. If you disagree with any part of these terms, then you may not access the Service.
+                    </p>
+                </div>
+
+                <div class="scroll-animate">
+                    <div class="section-toggle bg-gray-50 rounded-lg p-6 mb-4">
+                        <h2 class="text-xl font-bold text-gray-900 mb-2 flex items-center justify-between">
+                            Use License
+                            <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                        </h2>
+                    </div>
+                    <div class="section-content mb-8">
+                        <p class="text-gray-600 mb-4">Permission is granted to temporarily download one copy of Fuwalo for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:</p>
+                        <ul class="list-disc list-inside text-gray-600 mb-4 space-y-2">
+                            <li>Modify or copy the materials</li>
+                            <li>Use the materials for any commercial purpose or for any public display</li>
+                            <li>Attempt to reverse engineer any software contained in the app</li>
+                            <li>Remove any copyright or other proprietary notations from the materials</li>
+                        </ul>
+                        <p class="text-gray-600">
+                            This license shall automatically terminate if you violate any of these restrictions and may be terminated by us at any time.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="scroll-animate">
+                    <div class="section-toggle bg-gray-50 rounded-lg p-6 mb-4">
+                        <h2 class="text-xl font-bold text-gray-900 mb-2 flex items-center justify-between">
+                            User Accounts and Responsibilities
+                            <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                        </h2>
+                    </div>
+                    <div class="section-content mb-8">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Account Creation</h3>
+                        <ul class="list-disc list-inside text-gray-600 mb-4 space-y-2">
+                            <li>You must provide accurate and complete information when creating an account</li>
+                            <li>You are responsible for maintaining the confidentiality of your account credentials</li>
+                            <li>You must notify us immediately of any unauthorized use of your account</li>
+                            <li>You are responsible for all activities that occur under your account</li>
+                        </ul>
+
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">User Conduct</h3>
+                        <p class="text-gray-600 mb-4">You agree not to:</p>
+                        <ul class="list-disc list-inside text-gray-600 space-y-2">
+                            <li>Use the Service for any unlawful purpose or in violation of any applicable laws</li>
+                            <li>Harass, abuse, or harm other users</li>
+                            <li>Share inappropriate, offensive, or harmful content</li>
+                            <li>Attempt to gain unauthorized access to our systems or other users' accounts</li>
+                            <li>Interfere with or disrupt the Service or servers</li>
+                            <li>Use automated systems to access the Service without permission</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="scroll-animate">
+                    <div class="section-toggle bg-gray-50 rounded-lg p-6 mb-4">
+                        <h2 class="text-xl font-bold text-gray-900 mb-2 flex items-center justify-between">
+                            Content and Intellectual Property
+                            <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                        </h2>
+                    </div>
+                    <div class="section-content mb-8">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Your Content</h3>
+                        <p class="text-gray-600 mb-4">
+                            You retain ownership of any content you create, upload, or share through the Service ("Your Content"). By sharing content, you grant us a non-exclusive, royalty-free license to use, display, and distribute Your Content in connection with the Service.
+                        </p>
+
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Our Content</h3>
+                        <p class="text-gray-600 mb-4">
+                            The Service and its original content, features, and functionality are owned by Fuwalo and are protected by international copyright, trademark, patent, trade secret, and other intellectual property laws.
+                        </p>
+
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Third-Party Content</h3>
+                        <p class="text-gray-600">
+                            The Service may contain content from third parties, including music, lessons, and other materials. Such content is protected by copyright and other intellectual property laws. You may not use third-party content without permission from the respective rights holders.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="scroll-animate">
+                    <div class="section-toggle bg-gray-50 rounded-lg p-6 mb-4">
+                        <h2 class="text-xl font-bold text-gray-900 mb-2 flex items-center justify-between">
+                            Beta Testing Terms
+                            <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                        </h2>
+                    </div>
+                    <div class="section-content mb-8">
+                        <p class="text-gray-600 mb-4">
+                            Fuwalo is currently in beta testing. By participating in the beta, you acknowledge that:
+                        </p>
+                        <ul class="list-disc list-inside text-gray-600 space-y-2">
+                            <li>The Service may contain bugs, errors, or incomplete features</li>
+                            <li>Your data may be lost or corrupted during the beta period</li>
+                            <li>We may make changes to the Service without notice</li>
+                            <li>We are not liable for any issues arising from beta testing</li>
+                            <li>You agree to provide feedback to help improve the Service</li>
+                            <li>We may terminate beta access at any time</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="scroll-animate">
+                    <div class="section-toggle bg-gray-50 rounded-lg p-6 mb-4">
+                        <h2 class="text-xl font-bold text-gray-900 mb-2 flex items-center justify-between">
+                            Privacy and Data Protection
+                            <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                        </h2>
+                    </div>
+                    <div class="section-content mb-8">
+                        <p class="text-gray-600 mb-4">
+                            Your privacy is important to us. Our Privacy Policy explains how we collect, use, and protect your information when you use the Service. By using the Service, you agree to the collection and use of information in accordance with our Privacy Policy.
+                        </p>
+                        <p class="text-gray-600">
+                            We implement appropriate security measures to protect your personal information, but we cannot guarantee absolute security. You use the Service at your own risk.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="scroll-animate">
+                    <div class="section-toggle bg-gray-50 rounded-lg p-6 mb-4">
+                        <h2 class="text-xl font-bold text-gray-900 mb-2 flex items-center justify-between">
+                            Disclaimers and Limitations
+                            <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                        </h2>
+                    </div>
+                    <div class="section-content mb-8">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Service Availability</h3>
+                        <p class="text-gray-600 mb-4">
+                            The Service is provided on an "as is" and "as available" basis. We do not warrant that the Service will be uninterrupted, error-free, or free of viruses or other harmful components.
+                        </p>
+
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Limitation of Liability</h3>
+                        <p class="text-gray-600 mb-4">
+                            In no event shall Fuwalo, its directors, employees, partners, agents, suppliers, or affiliates be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your use of the Service.
+                        </p>
+
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Educational Disclaimer</h3>
+                        <p class="text-gray-600">
+                            Fuwalo is an educational tool designed to assist with piano learning. While we strive to provide accurate and helpful content, we do not guarantee specific learning outcomes. Individual results may vary based on practice, dedication, and other factors.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="scroll-animate">
+                    <div class="section-toggle bg-gray-50 rounded-lg p-6 mb-4">
+                        <h2 class="text-xl font-bold text-gray-900 mb-2 flex items-center justify-between">
+                            Termination
+                            <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                        </h2>
+                    </div>
+                    <div class="section-content mb-8">
+                        <p class="text-gray-600 mb-4">
+                            We may terminate or suspend your account and access to the Service immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms.
+                        </p>
+                        <p class="text-gray-600 mb-4">
+                            Upon termination, your right to use the Service will cease immediately. If you wish to terminate your account, you may simply discontinue using the Service or contact us to request account deletion.
+                        </p>
+                        <p class="text-gray-600">
+                            All provisions of the Terms which by their nature should survive termination shall survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity, and limitations of liability.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="scroll-animate">
+                    <div class="section-toggle bg-gray-50 rounded-lg p-6 mb-4">
+                        <h2 class="text-xl font-bold text-gray-900 mb-2 flex items-center justify-between">
+                            Changes to Terms
+                            <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                        </h2>
+                    </div>
+                    <div class="section-content mb-8">
+                        <p class="text-gray-600 mb-4">
+                            We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will try to provide at least 30 days notice prior to any new terms taking effect.
+                        </p>
+                        <p class="text-gray-600">
+                            By continuing to access or use our Service after those revisions become effective, you agree to be bound by the revised terms. If you do not agree to the new terms, please stop using the Service.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="scroll-animate">
+                    <div class="section-toggle bg-gray-50 rounded-lg p-6 mb-4">
+                        <h2 class="text-xl font-bold text-gray-900 mb-2 flex items-center justify-between">
+                            Governing Law
+                            <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                        </h2>
+                    </div>
+                    <div class="section-content mb-8">
+                        <p class="text-gray-600 mb-4">
+                            These Terms shall be interpreted and governed by the laws of the jurisdiction in which Fuwalo operates, without regard to its conflict of law provisions.
+                        </p>
+                        <p class="text-gray-600">
+                            Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights. If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining provisions will remain in effect.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="scroll-animate">
+                    <div class="section-toggle bg-gray-50 rounded-lg p-6 mb-4">
+                        <h2 class="text-xl font-bold text-gray-900 mb-2 flex items-center justify-between">
+                            Contact Information
+                            <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                        </h2>
+                    </div>
+                    <div class="section-content mb-8">
+                        <p class="text-gray-600 mb-4">
+                            If you have any questions about these Terms of Service, please contact us:
+                        </p>
+                        <ul class="list-disc list-inside text-gray-600 space-y-2">
+                            <li><strong>Email:</strong> legal@fuwalo.com</li>
+                            <li><strong>Discord:</strong> Join our community server for support</li>
+                            <li><strong>Website:</strong> Visit our FAQ page for common questions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-music text-purple-400 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold">Fuwalo</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">Your piano playground for learning, playing, and connecting with music lovers worldwide.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://x.com/fuwalo_ai" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://discord.gg/xDeDbSNDhq" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Product</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html#features" class="text-gray-400 hover:text-white">Features</a></li>
+                        <li><a href="roadmap.html" class="text-gray-400 hover:text-white">Roadmap</a></li>
+                        <li><a href="faq.html" class="text-gray-400 hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="privacy.html" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="terms.html" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                        <li><a href="faq.html" class="text-gray-400 hover:text-white">Support</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                <p class="text-gray-400">© 2024 Fuwalo. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Animation Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all scroll-animate elements
+        document.querySelectorAll('.scroll-animate').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true' || false;
+            mobileMenuButton.setAttribute('aria-expanded', !expanded);
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Section Toggle
+        document.querySelectorAll('.section-toggle').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const content = toggle.nextElementSibling;
+                const icon = toggle.querySelector('.fa-chevron-down');
+                const isActive = content.classList.contains('active');
+                
+                // Close all sections
+                document.querySelectorAll('.section-content').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.querySelectorAll('.section-toggle .fa-chevron-down').forEach(chevron => {
+                    chevron.style.transform = 'rotate(0deg)';
+                });
+                
+                // Open clicked section if it wasn't active
+                if (!isActive) {
+                    content.classList.add('active');
+                    icon.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

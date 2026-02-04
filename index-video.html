@@ -1,0 +1,1791 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuwalo - Try the Beta | Piano Learning & Multiplayer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        purple: '#CBB4FF',
+                        blue: '#B8E0FF',
+                        pink: '#FFD6EC',
+                        discord: '#5865F2',
+                        softpink: '#FDF2F8',
+                        lightlavender: '#F5F3FF',
+                        mutedmauve: '#EDE9FE',
+                        mediumpurple: '#DDD6FE',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #A58CD5 0%, #6A578D 100%);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #7B61FF 0%, #00A3FF 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .screenshot {
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border-radius: 40px;
+            border: 12px solid white;
+        }
+
+        @media (max-width: 640px) {
+            .screenshot {
+                border-radius: 20px;
+                border: 8px solid white;
+            }
+        }
+
+        .floating-img {
+            animation: float 6s ease-in-out infinite;
+            object-fit: cover;
+            object-position: center;
+            max-height: 400px;
+            width: 100%;
+        }
+
+        @media (max-width: 640px) {
+            .floating-img {
+                max-height: 280px;
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(-1deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(1deg);
+            }
+        }
+
+        .carousel-item {
+            transition: transform 0.5s ease;
+        }
+
+        .navbar {
+            background-color: rgba(248, 244, 252, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .mobile-menu {
+            display: none;
+        }
+
+        .mobile-menu.active {
+            display: block;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 50;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .mobile-menu li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-menu a {
+            display: block;
+            width: 100%;
+            padding: 0.5rem;
+            text-align: center;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .mobile-menu a:hover {
+            color: #7B61FF;
+        }
+
+        .btn-premium {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            border-radius: 9999px;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-premium::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(255,255,255,0));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+        .btn-premium:hover {
+            transform: translateY(-2px);
+        }
+        .btn-premium:active {
+            transform: translateY(0);
+        }
+        .btn-premium i {
+            transition: transform 0.25s ease;
+        }
+        .btn-premium:hover i {
+            transform: scale(1.08);
+        }
+        .btn-premium-primary {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f5ff 100%);
+            color: #5B4B8A;
+            box-shadow: 0 4px 14px rgba(91, 75, 138, 0.25), 0 1px 3px rgba(0,0,0,0.08);
+            border: 1px solid rgba(255,255,255,0.6);
+        }
+        .btn-premium-primary:hover {
+            box-shadow: 0 8px 28px rgba(91, 75, 138, 0.35), 0 2px 8px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, #ffffff 0%, #f0ebff 100%);
+        }
+        .btn-premium-discord {
+            background: linear-gradient(135deg, #5865F2 0%, #4752C4 100%);
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(88, 101, 242, 0.4), 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .btn-premium-discord:hover {
+            box-shadow: 0 8px 28px rgba(88, 101, 242, 0.5), 0 2px 8px rgba(0,0,0,0.15);
+            background: linear-gradient(135deg, #6370FF 0%, #5865F2 100%);
+        }
+        .btn-premium-download {
+            background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35), 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .btn-premium-download:hover {
+            box-shadow: 0 8px 28px rgba(124, 58, 237, 0.45), 0 2px 8px rgba(0,0,0,0.12);
+            background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+        }
+        @media (min-width: 768px) {
+            .btn-premium { padding: 1rem 2rem; font-size: 1rem; }
+        }
+
+        .download-btn {
+            transition: all 0.3s ease;
+        }
+        .download-btn.btn-premium-download { /* allow download section to reuse premium style */ }
+
+        .platform-card {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .platform-card:hover {
+            border-color: #7B61FF;
+            transform: translateY(-5px);
+        }
+
+        .qr-code {
+            transition: all 0.3s ease;
+        }
+
+        .qr-code:hover {
+            transform: scale(1.05);
+        }
+
+        .feature-pill {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #7B61FF;
+            color: white;
+            border-radius: 9999px;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+        .feature-pill-beta {
+            background: #3B82F6;
+        }
+
+        .download-section {
+            background: linear-gradient(135deg, rgba(165, 140, 213, 0.1) 0%, rgba(106, 87, 141, 0.1) 100%);
+        }
+
+        .coming-soon {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .coming-soon::after {
+            content: "COMING SOON";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #7B61FF;
+            z-index: 10;
+            transform: rotate(-15deg);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Enhanced Modern Styles */
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .animated-gradient {
+            background: linear-gradient(152deg, #5B4B8A 0%, #4A3D6E 28%, #6B5B8E 50%, #7D6B9E 72%, #5B4B8A 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 22s ease-in-out infinite;
+            position: relative;
+        }
+
+        .animated-gradient::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(203, 180, 255, 0.25), transparent),
+                        radial-gradient(ellipse 60% 40% at 90% 80%, rgba(184, 224, 255, 0.12), transparent),
+                        radial-gradient(ellipse 50% 30% at 10% 60%, rgba(255, 214, 236, 0.08), transparent);
+            pointer-events: none;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* Hero video background (variation) */
+        .hero-video-bg {
+            position: relative;
+            background: linear-gradient(152deg, #5B4B8A 0%, #4A3D6E 100%);
+        }
+        .hero-video-bg .hero-bg-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+        .hero-video-bg .hero-bg-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(91, 75, 138, 0.75) 0%, rgba(74, 61, 110, 0.85) 100%);
+            z-index: 1;
+        }
+        .hero-video-bg .hero-bg-content {
+            position: relative;
+            z-index: 10;
+        }
+        .hero-video-bg .floating-note {
+            z-index: 5;
+        }
+        .chibi-sticker {
+            position: absolute;
+            right: 2%;
+            bottom: 5%;
+            width: clamp(100px, 18vw, 180px);
+            height: auto;
+            z-index: 2;
+            animation: chibi-float 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes chibi-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        @media (max-width: 640px) {
+            .chibi-sticker { right: 0; bottom: 2%; width: clamp(80px, 22vw, 120px); }
+        }
+        .here-pointer-sticker {
+            position: absolute;
+            top: 0;
+            right: 8%;
+            transform: translateY(-55%) rotate(-6deg);
+            width: clamp(80px, 14vw, 140px);
+            height: auto;
+            z-index: 10;
+            pointer-events: none;
+        }
+        @media (max-width: 640px) {
+            .here-pointer-sticker { right: 2%; width: clamp(70px, 20vw, 100px); transform: translateY(-50%) rotate(-5deg); }
+        }
+
+        .floating-note {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.18);
+            animation: floatNote 18s ease-in-out infinite;
+            pointer-events: none;
+            font-size: 1rem;
+        }
+
+        @keyframes floatNote {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            6% {
+                opacity: 0.14;
+            }
+            50% {
+                opacity: 0.2;
+            }
+            94% {
+                opacity: 0.1;
+            }
+            100% {
+                transform: translateY(-12vh) translateX(6px) rotate(6deg);
+                opacity: 0;
+            }
+        }
+
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .scroll-animate.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .parallax {
+            transform: translateZ(0);
+            will-change: transform;
+        }
+
+        .counter {
+            font-variant-numeric: tabular-nums;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            grid-auto-rows: minmax(180px, auto);
+        }
+
+        @media (max-width: 640px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+                grid-auto-rows: auto;
+            }
+        }
+
+        .bento-item:nth-child(1) {
+            grid-column: span 2;
+        }
+
+        .bento-item:nth-child(3) {
+            grid-row: span 2;
+        }
+
+        .bento-item:nth-child(5) {
+            grid-column: span 2;
+        }
+
+        .floating-action {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+
+        .btn-fab {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4), 0 2px 6px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .btn-fab:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 28px rgba(124, 58, 237, 0.5), 0 4px 12px rgba(0,0,0,0.12);
+        }
+        .btn-fab:active {
+            transform: scale(0.98);
+        }
+
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #A58CD5 0%, #6A578D 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #7B61FF, #00A3FF);
+            z-index: 1001;
+            transition: width 0.1s ease;
+        }
+
+        .testimonial-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -8px rgba(123, 97, 255, 0.12);
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            pointer-events: none;
+        }
+
+        .video-overlay.active {
+            pointer-events: auto;
+        }
+
+        .video-container.playing .video-overlay {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .video-container .video-overlay .play-btn {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.95);
+            color: #7B61FF;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
+
+        .video-container .video-overlay .play-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+        }
+
+        .faq-item {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-content {
+            max-height: 200px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: #7B61FF;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #7B61FF;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 12px;
+            width: 2px;
+            height: calc(100% + 1rem);
+            background: linear-gradient(to bottom, #7B61FF, transparent);
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+
+        /* Clients / Trusted-by strip */
+        .ClientsLogo-module--clients--d8d9f {
+            padding: 3rem 0;
+            background: rgba(248, 250, 252, 0.6);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .ClientsLogo-module--clients--d8d9f::before,
+        .ClientsLogo-module--clients--d8d9f::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 150px;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .ClientsLogo-module--clients--d8d9f::before {
+            left: 0;
+            background: linear-gradient(to right, rgba(248,250,252,0.98), transparent);
+        }
+
+        .ClientsLogo-module--clients--d8d9f::after {
+            right: 0;
+            background: linear-gradient(to left, rgba(248,250,252,0.98), transparent);
+        }
+
+        .clients-logo-wrapper {
+            display: flex;
+            width: max-content;
+        }
+
+        .clients-logo-container {
+            display: flex;
+            animation: scrollClients 30s linear infinite;
+            gap: 4rem;
+            align-items: center;
+            will-change: transform;
+        }
+
+        .clients-logo-container:hover {
+            animation-play-state: paused;
+        }
+
+        .client-logo-item {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            opacity: 0.6;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #4B5563;
+            white-space: nowrap;
+        }
+
+        .client-logo-item .client-logo-icon {
+            font-size: 1.25rem;
+            width: 1.5em;
+            text-align: center;
+            color: #7B61FF;
+            opacity: 0.9;
+        }
+
+        .client-logo-item:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        @keyframes scrollClients {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .ClientsLogo-module--clients--d8d9f {
+                padding: 2rem 0;
+            }
+
+            .client-logo-item {
+                font-size: 1.2rem;
+                gap: 2rem;
+            }
+
+            .clients-logo-container {
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="text-center">
+            <div class="floating-img mb-8">
+                <i class="fas fa-music text-white text-6xl"></i>
+            </div>
+            <h1 class="text-4xl font-bold text-white mb-4">Fuwalo</h1>
+            <div class="w-16 h-1 bg-white bg-opacity-30 rounded-full mx-auto">
+                <div class="h-full bg-white rounded-full animate-pulse"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar py-4 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-music text-purple-500 text-3xl mr-2"></i>
+                        <span class="text-xl font-bold text-gray-900">Fuwalo</span>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-center space-x-4">
+                        <a href="#features"
+                            class="text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium">Features</a>
+                        <a href="#screenshots"
+                            class="text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium">Screenshots</a>
+                        <a href="#download"
+                            class="text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium">Download</a>
+                        <a href="#community"
+                            class="text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium">Community</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button type="button"
+                        class="mobile-menu-button inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-purple-500 focus:outline-none"
+                        aria-controls="mobile-menu" aria-expanded="false">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div class="mobile-menu" id="mobile-menu">
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#screenshots">Screenshots</a></li>
+                    <li><a href="#download">Download</a></li>
+                    <li><a href="#community">Community</a></li>
+                    <li>
+                        <a href="https://discord.gg/vPjNSTeVVk"
+                            class="bg-discord text-white px-4 py-2 rounded-md inline-block">
+                            <i class="fab fa-discord mr-2"></i>Join Discord
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section (video background variation) -->
+    <section class="hero-video-bg pt-16 md:pt-32 pb-12 md:pb-24 relative overflow-hidden">
+        <video class="hero-bg-video" autoplay muted loop playsinline aria-hidden="true">
+            <source src="test/video.mp4" type="video/mp4">
+        </video>
+        <div class="hero-bg-overlay" aria-hidden="true"></div>
+        <!-- Subtle floating notes (static set, no spawn) -->
+        <div class="floating-note" style="left: 12%; animation-delay: 0s; font-size: 0.95rem;"><i class="fas fa-music" aria-hidden="true"></i></div>
+        <div class="floating-note" style="left: 78%; animation-delay: 6s; font-size: 1.1rem;"><i class="fas fa-music" aria-hidden="true"></i></div>
+        <div class="floating-note" style="left: 48%; animation-delay: 12s; font-size: 0.85rem;"><i class="fas fa-music" aria-hidden="true"></i></div>
+
+        <div class="max-w-7xl mx-auto px-4 md:px-6 hero-bg-content">
+            <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12">
+                <div class="md:w-1/2 space-y-4 md:space-y-8 text-center md:text-left scroll-animate">
+                    <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold text-white">
+                        Fuwalo <br>
+                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100">Try the beta</span>
+                    </h1>
+                    <p class="text-base md:text-xl text-white opacity-90">Experience the future of piano learning and
+                        multiplayer fun. Download the beta or join our community on Discord.</p>
+
+                    <!-- Beta Stats Counter -->
+                    <div class="flex items-center justify-center md:justify-start gap-4 md:gap-8 text-white">
+                        <div class="text-center">
+                            <div class="text-2xl md:text-3xl font-bold counter" data-target="300" data-suffix="+">0</div>
+                            <div class="text-xs md:text-sm opacity-80">Beta Testers</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl md:text-3xl font-bold counter" data-target="50" data-suffix="+">0</div>
+                            <div class="text-xs md:text-sm opacity-80">Songs Played</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl md:text-3xl font-bold counter" data-target="8">0</div>
+                            <div class="text-xs md:text-sm opacity-80">Countries</div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-3 md:gap-4">
+                        <a href="#download" class="btn-premium btn-premium-primary">
+                            <i class="fas fa-download mr-2" aria-hidden="true"></i> Download Beta APK
+                        </a>
+                        <a href="https://discord.gg/xDeDbSNDhq" target="_blank" rel="noopener noreferrer" class="btn-premium btn-premium-discord">
+                            <i class="fab fa-discord mr-2" aria-hidden="true"></i> Join Discord
+                        </a>
+                    </div>
+                </div>
+
+                <div class="md:w-1/2 parallax">
+                    <img src="https://i.ibb.co/Z1ksnwzz/Capture.png"
+                        class="floating-img w-full max-w-xl rounded-2xl shadow-2xl transform rotate-3">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trusted by / Clients strip -->
+    <div class="ClientsLogo-module--clients--d8d9f border-t border-slate-100 bg-slate-50/50">
+        <p class="text-center text-xs md:text-sm font-medium text-slate-500 uppercase tracking-widest mb-6">Trusted by learners worldwide</p>
+        <div class="clients-logo-wrapper">
+            <div class="clients-logo-container">
+                <div class="client-logo-item"><i class="fas fa-music client-logo-icon" aria-hidden="true"></i><span>Piano Masters</span></div>
+                <div class="client-logo-item"><i class="fas fa-graduation-cap client-logo-icon" aria-hidden="true"></i><span>Music Academy</span></div>
+                <div class="client-logo-item"><i class="fas fa-microphone client-logo-icon" aria-hidden="true"></i><span>Sound Studio</span></div>
+                <div class="client-logo-item"><i class="fas fa-guitar client-logo-icon" aria-hidden="true"></i><span>Harmony School</span></div>
+                <div class="client-logo-item"><i class="fas fa-volume-high client-logo-icon" aria-hidden="true"></i><span>Melody Hub</span></div>
+                <div class="client-logo-item"><i class="fas fa-drum client-logo-icon" aria-hidden="true"></i><span>Virtuoso</span></div>
+                <div class="client-logo-item"><i class="fas fa-music client-logo-icon" aria-hidden="true"></i><span>Piano Masters</span></div>
+                <div class="client-logo-item"><i class="fas fa-graduation-cap client-logo-icon" aria-hidden="true"></i><span>Music Academy</span></div>
+                <div class="client-logo-item"><i class="fas fa-microphone client-logo-icon" aria-hidden="true"></i><span>Sound Studio</span></div>
+                <div class="client-logo-item"><i class="fas fa-guitar client-logo-icon" aria-hidden="true"></i><span>Harmony School</span></div>
+                <div class="client-logo-item"><i class="fas fa-volume-high client-logo-icon" aria-hidden="true"></i><span>Melody Hub</span></div>
+                <div class="client-logo-item"><i class="fas fa-drum client-logo-icon" aria-hidden="true"></i><span>Virtuoso</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <section id="features" class="py-14 md:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 md:mb-20">
+                <h2 class="text-2xl md:text-4xl font-bold text-slate-900 mb-3 md:mb-4 tracking-tight">Why you'll love Fuwalo</h2>
+                <p class="text-base md:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">A clearer way to learn piano—solo or with others, from your first note to your first performance.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+                <div class="feature-card group bg-white rounded-2xl p-5 md:p-8 border border-slate-200/80 shadow-sm hover:shadow-lg hover:border-violet-200/80 transition-all duration-300 relative overflow-hidden">
+                    <span class="feature-pill">New</span>
+                    <div class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-violet-50 flex items-center justify-center mb-5 text-violet-600 group-hover:bg-violet-100 transition-colors">
+                        <i class="fas fa-graduation-cap text-lg md:text-xl" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-slate-900 mb-2">Interactive lessons</h3>
+                    <p class="text-sm md:text-base text-slate-600 leading-relaxed">From basics to advanced techniques with real-time feedback.</p>
+                </div>
+
+                <div class="feature-card group bg-white rounded-2xl p-5 md:p-8 border border-slate-200/80 shadow-sm hover:shadow-lg hover:border-violet-200/80 transition-all duration-300 relative overflow-hidden">
+                    <span class="feature-pill feature-pill-beta">Beta</span>
+                    <div class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-blue-50 flex items-center justify-center mb-5 text-blue-600 group-hover:bg-blue-100 transition-colors">
+                        <i class="fas fa-users text-lg md:text-xl" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-slate-900 mb-2">Multiplayer piano</h3>
+                    <p class="text-sm md:text-base text-slate-600 leading-relaxed">Play in sync with friends or others in shared piano rooms.</p>
+                </div>
+
+                <div class="feature-card group bg-white rounded-2xl p-5 md:p-8 border border-slate-200/80 shadow-sm hover:shadow-lg hover:border-violet-200/80 transition-all duration-300">
+                    <div class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-pink-50 flex items-center justify-center mb-5 text-pink-600 group-hover:bg-pink-100 transition-colors">
+                        <i class="fas fa-gamepad text-lg md:text-xl" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-slate-900 mb-2">Mini-games</h3>
+                    <p class="text-sm md:text-base text-slate-600 leading-relaxed">Short challenges and games to build skills without grinding.</p>
+                </div>
+
+                <div class="feature-card group bg-white rounded-2xl p-5 md:p-8 border border-slate-200/80 shadow-sm hover:shadow-lg hover:border-violet-200/80 transition-all duration-300">
+                    <div class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-violet-50 flex items-center justify-center mb-5 text-violet-600 group-hover:bg-violet-100 transition-colors">
+                        <i class="fas fa-share-alt text-lg md:text-xl" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-slate-900 mb-2">Record & share</h3>
+                    <p class="text-sm md:text-base text-slate-600 leading-relaxed">Save your sessions and share them with the Fuwalo community.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="py-14 md:py-24 bg-slate-50/80 border-y border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 md:mb-16 scroll-animate">
+                <h2 class="text-2xl md:text-4xl font-bold text-slate-900 mb-3 md:mb-4 tracking-tight">Join thousands of music lovers</h2>
+                <p class="text-base md:text-lg text-slate-600 max-w-2xl mx-auto">Our community is growing. Be part of a new way to learn piano.</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                <div class="text-center scroll-animate">
+                    <div class="stat-card bg-white rounded-2xl p-5 md:p-8 border border-slate-200/60 shadow-sm hover:shadow-md hover:border-violet-200/60 transition-all duration-300">
+                        <div class="text-2xl md:text-4xl font-bold text-violet-600 counter mb-1 tabular-nums" data-target="300" data-suffix="+">0</div>
+                        <div class="text-xs md:text-sm text-slate-600 font-medium">Beta testers</div>
+                    </div>
+                </div>
+                <div class="text-center scroll-animate">
+                    <div class="stat-card bg-white rounded-2xl p-5 md:p-8 border border-slate-200/60 shadow-sm hover:shadow-md hover:border-blue-200/60 transition-all duration-300">
+                        <div class="text-2xl md:text-4xl font-bold text-blue-600 counter mb-1 tabular-nums" data-target="50" data-suffix="+">0</div>
+                        <div class="text-xs md:text-sm text-slate-600 font-medium">Songs played</div>
+                    </div>
+                </div>
+                <div class="text-center scroll-animate">
+                    <div class="stat-card bg-white rounded-2xl p-5 md:p-8 border border-slate-200/60 shadow-sm hover:shadow-md hover:border-pink-200/60 transition-all duration-300">
+                        <div class="text-2xl md:text-4xl font-bold text-pink-600 counter mb-1 tabular-nums" data-target="8">0</div>
+                        <div class="text-xs md:text-sm text-slate-600 font-medium">Countries</div>
+                    </div>
+                </div>
+                <div class="text-center scroll-animate">
+                    <div class="stat-card bg-white rounded-2xl p-5 md:p-8 border border-slate-200/60 shadow-sm hover:shadow-md hover:border-emerald-200/60 transition-all duration-300">
+                        <div class="text-2xl md:text-4xl font-bold text-emerald-600 counter mb-1 tabular-nums" data-target="98">0</div>
+                        <div class="text-xs md:text-sm text-slate-600 font-medium">Satisfaction</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="py-14 md:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 md:mb-16 scroll-animate">
+                <h2 class="text-2xl md:text-4xl font-bold text-slate-900 mb-3 md:mb-4 tracking-tight">How Fuwalo works</h2>
+                <p class="text-base md:text-lg text-slate-600 max-w-2xl mx-auto">Three steps from install to playing.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+                <div class="text-center scroll-animate">
+                    <div class="step-circle w-14 h-14 md:w-16 md:h-16 rounded-full bg-violet-100 border-2 border-violet-200 flex items-center justify-center mx-auto mb-5">
+                        <span class="text-lg md:text-xl font-bold text-violet-600">1</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-slate-900 mb-2">Download</h3>
+                    <p class="text-sm md:text-base text-slate-600 leading-relaxed">Get the beta from the download section below.</p>
+                </div>
+                <div class="text-center scroll-animate">
+                    <div class="step-circle w-14 h-14 md:w-16 md:h-16 rounded-full bg-blue-100 border-2 border-blue-200 flex items-center justify-center mx-auto mb-5">
+                        <span class="text-lg md:text-xl font-bold text-blue-600">2</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-slate-900 mb-2">Choose your path</h3>
+                    <p class="text-sm md:text-base text-slate-600 leading-relaxed">Lessons, solo play, or multiplayer rooms—you pick.</p>
+                </div>
+                <div class="text-center scroll-animate">
+                    <div class="step-circle w-14 h-14 md:w-16 md:h-16 rounded-full bg-pink-100 border-2 border-pink-200 flex items-center justify-center mx-auto mb-5">
+                        <span class="text-lg md:text-xl font-bold text-pink-600">3</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-slate-900 mb-2">Play & improve</h3>
+                    <p class="text-sm md:text-base text-slate-600 leading-relaxed">Practice, get feedback, record, and share.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Showcase Section -->
+    <section class="py-14 md:py-24 bg-slate-50/80 border-y border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10 md:mb-14 scroll-animate">
+                <h2 class="text-2xl md:text-4xl font-bold text-slate-900 mb-3 md:mb-4 tracking-tight">See Fuwalo in action</h2>
+                <p class="text-base md:text-lg text-slate-600 max-w-2xl mx-auto">Watch how Fuwalo makes piano learning fun and interactive.</p>
+            </div>
+
+            <div class="relative max-w-4xl mx-auto scroll-animate">
+                <div class="video-container relative rounded-2xl overflow-hidden shadow-xl border border-slate-200/80 bg-slate-900" id="fuwaloVideoContainer">
+                    <video class="w-full aspect-video object-cover" id="fuwaloVideo" playsinline controls preload="metadata" poster="">
+                        <source src="VID_20260124093225.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-overlay active" id="videoOverlay" aria-hidden="false">
+                        <button type="button" class="play-btn" id="videoPlayBtn" aria-label="Play video">
+                            <i class="fas fa-play ml-1" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-10 md:py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8 md:mb-16 scroll-animate">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4">What Our Users Say</h2>
+                <p class="text-base md:text-xl text-gray-600 max-w-3xl mx-auto">Real feedback from our amazing community
+                    of piano learners.</p>
+            </div>
+
+            <div class="bento-grid">
+                <div
+                    class="bento-item bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-4 md:p-8 testimonial-card">
+                    <div class="flex items-center mb-3 md:mb-4">
+                        <div
+                            class="w-10 h-10 md:w-12 md:h-12 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold mr-3 md:mr-4 text-sm md:text-base">
+                            S
+                        </div>
+                        <div>
+                            <h4 class="text-sm md:text-base font-bold text-gray-900">Sarah M.</h4>
+                            <div class="flex text-yellow-400 text-xs md:text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-xs md:text-base text-gray-600 italic">"Fuwalo completely changed how I learn piano.
+                        The multiplayer feature is incredible - playing with friends makes practice so much fun!"</p>
+                </div>
+
+                <div
+                    class="bento-item bg-gradient-to-br from-blue-50 to-pink-50 rounded-2xl p-4 md:p-8 testimonial-card">
+                    <div class="flex items-center mb-3 md:mb-4">
+                        <div
+                            class="w-10 h-10 md:w-12 md:h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-3 md:mr-4 text-sm md:text-base">
+                            M
+                        </div>
+                        <div>
+                            <h4 class="text-sm md:text-base font-bold text-gray-900">Mike R.</h4>
+                            <div class="flex text-yellow-400 text-xs md:text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-xs md:text-base text-gray-600 italic">"As a complete beginner, Fuwalo's interactive
+                        lessons made learning piano feel natural. The real-time feedback is amazing!"</p>
+                </div>
+
+                <div
+                    class="bento-item bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl p-4 md:p-8 testimonial-card">
+                    <div class="flex items-center mb-3 md:mb-4">
+                        <div
+                            class="w-10 h-10 md:w-12 md:h-12 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold mr-3 md:mr-4 text-sm md:text-base">
+                            A
+                        </div>
+                        <div>
+                            <h4 class="text-sm md:text-base font-bold text-gray-900">Alex K.</h4>
+                            <div class="flex text-yellow-400 text-xs md:text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-xs md:text-base text-gray-600 italic">"The MIDI upload feature is a game-changer. I
+                        can play all my favorite songs and share them with the community."</p>
+                </div>
+
+                <div
+                    class="bento-item bg-gradient-to-br from-green-50 to-blue-50 rounded-2xl p-4 md:p-8 testimonial-card">
+                    <div class="flex items-center mb-3 md:mb-4">
+                        <div
+                            class="w-10 h-10 md:w-12 md:h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-bold mr-3 md:mr-4 text-sm md:text-base">
+                            E
+                        </div>
+                        <div>
+                            <h4 class="text-sm md:text-base font-bold text-gray-900">Emma L.</h4>
+                            <div class="flex text-yellow-400 text-xs md:text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-xs md:text-base text-gray-600 italic">"Fuwalo's community is so supportive. I've made
+                        friends from around the world who share my passion for music!"</p>
+                </div>
+
+                <div
+                    class="bento-item bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl p-4 md:p-8 testimonial-card">
+                    <div class="flex items-center mb-3 md:mb-4">
+                        <div
+                            class="w-10 h-10 md:w-12 md:h-12 bg-yellow-500 rounded-full flex items-center justify-center text-white font-bold mr-3 md:mr-4 text-sm md:text-base">
+                            D
+                        </div>
+                        <div>
+                            <h4 class="text-sm md:text-base font-bold text-gray-900">David T.</h4>
+                            <div class="flex text-yellow-400 text-xs md:text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-xs md:text-base text-gray-600 italic">"The mini-games are addictive! I didn't realize
+                        I was improving my piano skills while having so much fun."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshot Gallery -->
+    <section id="screenshots" class="py-10 md:py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8 md:mb-16">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4">App Screenshots</h2>
+                <p class="text-base md:text-xl text-gray-600 max-w-3xl mx-auto">Take a peek at what Fuwalo looks like.</p>
+            </div>
+
+            <div class="relative overflow-hidden">
+                <div class="flex transition-transform duration-300" id="carousel">
+                    <div class="carousel-item flex-shrink-0 w-full">
+                        <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
+                            <img src="screenshots/4c969790-ff11-432c-b7a7-728683f855f3.jfif" alt="Fuwalo app – piano screen" class="screenshot w-48 md:w-64" width="256" height="512" loading="lazy">
+                            <img src="screenshots/56bc0e99-e420-4a5a-8300-d113f7ba9362.jfif" alt="Fuwalo app – gameplay" class="screenshot w-48 md:w-64" width="256" height="512" loading="lazy">
+                            <img src="screenshots/b1b83425-2f48-49ec-a149-e28262f41fec.jfif" alt="Fuwalo app – menu" class="screenshot w-48 md:w-64" width="256" height="512" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-center mt-6 space-x-2">
+                    <button class="carousel-indicator w-3 h-3 rounded-full bg-gray-300 hover:bg-gray-400" data-index="0" aria-current="true" aria-label="Screenshot 1"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="py-14 md:py-24 download-section relative overflow-visible">
+        <img src="sticker.png" alt="" class="chibi-sticker" aria-hidden="true">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10 md:mb-14 scroll-animate">
+                <h2 class="text-2xl md:text-4xl font-bold text-slate-900 mb-3 md:mb-4 tracking-tight">Get Fuwalo</h2>
+                <p class="text-base md:text-lg text-slate-600 max-w-2xl mx-auto">Download the beta and start playing. Join Discord for updates and community.</p>
+            </div>
+
+            <div class="max-w-2xl mx-auto relative">
+                <!-- Beta APK Download -->
+                <div class="bg-white rounded-2xl p-6 md:p-10 shadow-xl border border-slate-200/80 platform-card scroll-animate relative overflow-visible">
+                    <img src="here.png" alt="" class="here-pointer-sticker" aria-hidden="true">
+                    <div class="flex flex-col md:flex-row items-center gap-6 md:gap-10">
+                        <div class="text-center md:text-left flex-1">
+                            <div class="bg-violet-100 w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center mb-4 md:mb-5 mx-auto md:mx-0 text-violet-600">
+                                <i class="fas fa-download text-2xl md:text-3xl" aria-hidden="true"></i>
+                            </div>
+                            <h3 class="text-xl md:text-2xl font-bold text-slate-900 mb-2">Beta APK</h3>
+                            <p class="text-sm md:text-base text-slate-600 mb-5 md:mb-6">Download the latest beta and join 300+ testers. Updates and support in Discord.</p>
+                            <a href="https://firebasestorage.googleapis.com/v0/b/noble-particle-466210-u9/o/base%20(9).apk?alt=media&token=a4208069-9e78-459f-95d3-67c4cd537c70"
+                                download
+                                class="btn-premium btn-premium-download inline-flex">
+                                <i class="fas fa-download mr-2" aria-hidden="true"></i> Download Beta (137MB)
+                            </a>
+                        </div>
+                        <div class="qr-code bg-slate-50 p-4 rounded-xl border border-slate-200/80 shrink-0">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://firebasestorage.googleapis.com/v0/b/noble-particle-466210-u9/o/base%20(9).apk?alt=media&token=a4208069-9e78-459f-95d3-67c4cd537c70"
+                                alt="Beta APK Download QR Code" class="w-24 h-24 md:w-32 md:h-32" width="128" height="128">
+                            <p class="text-xs text-slate-500 mt-2 font-medium">Scan to download</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Installation Instructions -->
+            <div class="mt-8 md:mt-16 bg-white rounded-2xl p-4 md:p-8 shadow-lg">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6 text-center">Installation Guide</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                            <span
+                                class="bg-purple-100 text-purple-600 rounded-full w-8 h-8 flex items-center justify-center mr-3">1</span>
+                            Android Instructions
+                        </h4>
+                        <ol class="list-decimal list-inside text-gray-600 space-y-2 pl-4">
+                            <li>Download the APK file</li>
+                            <li>Open the downloaded file</li>
+                            <li>If prompted, allow installation from unknown sources</li>
+                            <li>Follow the on-screen instructions</li>
+                            <li>Open Fuwalo and enjoy!</li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                            <span
+                                class="bg-blue-100 text-blue-600 rounded-full w-8 h-8 flex items-center justify-center mr-3">2</span>
+                            iOS Instructions (Coming Soon)
+                        </h4>
+                        <ol class="list-decimal list-inside text-gray-600 space-y-2 pl-4">
+                            <li>Check back soon for iOS availability</li>
+                            <li>We're working hard to bring Fuwalo to iPhone</li>
+                            <li>Join our Discord for updates</li>
+                            <li>Sign up for notifications when iOS version launches</li>
+                            <li>Follow us on social media for announcements</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Beta Features -->
+    <section class="py-10 md:py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8 md:mb-16">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4">What's in the Beta?</h2>
+                <p class="text-base md:text-xl text-gray-600 max-w-3xl mx-auto">Experience these exciting features right
+                    now</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
+                <div
+                    class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-4 md:p-8 transition-all duration-300 card-hover">
+                    <div class="flex items-center mb-3 md:mb-4">
+                        <div
+                            class="bg-purple-100 text-purple-600 rounded-full w-8 h-8 md:w-10 md:h-10 flex items-center justify-center mr-3 md:mr-4 text-sm md:text-base">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-bold text-gray-900">Song Selection</h3>
+                    </div>
+                    <p class="text-sm md:text-base text-gray-600">Browse and play from our growing library of songs.</p>
+                </div>
+
+                <div
+                    class="bg-gradient-to-br from-blue-50 to-pink-50 rounded-2xl p-4 md:p-8 transition-all duration-300 card-hover">
+                    <div class="flex items-center mb-3 md:mb-4">
+                        <div
+                            class="bg-blue-100 text-blue-600 rounded-full w-8 h-8 md:w-10 md:h-10 flex items-center justify-center mr-3 md:mr-4 text-sm md:text-base">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-bold text-gray-900">Virtual Piano</h3>
+                    </div>
+                    <p class="text-sm md:text-base text-gray-600">Full-featured piano with realistic sound and touch
+                        response.</p>
+                </div>
+
+                <div
+                    class="bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl p-4 md:p-8 transition-all duration-300 card-hover">
+                    <div class="flex items-center mb-3 md:mb-4">
+                        <div
+                            class="bg-pink-100 text-pink-600 rounded-full w-8 h-8 md:w-10 md:h-10 flex items-center justify-center mr-3 md:mr-4 text-sm md:text-base">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-bold text-gray-900">MIDI Uploads</h3>
+                    </div>
+                    <p class="text-sm md:text-base text-gray-600">Upload your favorite MIDI files to play and share.</p>
+                </div>
+
+                <div
+                    class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-4 md:p-8 transition-all duration-300 card-hover">
+                    <div class="flex items-center mb-3 md:mb-4">
+                        <div
+                            class="bg-purple-100 text-purple-600 rounded-full w-8 h-8 md:w-10 md:h-10 flex items-center justify-center mr-3 md:mr-4 text-sm md:text-base">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-bold text-gray-900">User Accounts</h3>
+                    </div>
+                    <p class="text-sm md:text-base text-gray-600">Secure authentication to save your progress and
+                        favorites.</p>
+                </div>
+
+                <div
+                    class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-4 md:p-8 transition-all duration-300 card-hover">
+                    <div class="flex items-center mb-3 md:mb-4">
+                        <div
+                            class="bg-blue-100 text-blue-600 rounded-full w-8 h-8 md:w-10 md:h-10 flex items-center justify-center mr-3 md:mr-4 text-sm md:text-base">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-bold text-gray-900">Core Piano Engine</h3>
+                    </div>
+                    <p class="text-sm md:text-base text-gray-600">High-quality piano sound engine with realistic
+                        response.</p>
+                </div>
+
+                <div
+                    class="bg-gradient-to-br from-pink-50 to-blue-50 rounded-2xl p-4 md:p-8 transition-all duration-300 card-hover">
+                    <div class="flex items-center mb-3 md:mb-4">
+                        <div
+                            class="bg-pink-100 text-pink-600 rounded-full w-8 h-8 md:w-10 md:h-10 flex items-center justify-center mr-3 md:mr-4 text-sm md:text-base">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-bold text-gray-900">Feedback System</h3>
+                    </div>
+                    <p class="text-sm md:text-base text-gray-600">Help shape future updates with your suggestions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-10 md:py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8 md:mb-16 scroll-animate">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4">Frequently Asked Questions</h2>
+                <p class="text-base md:text-xl text-gray-600">Everything you need to know about Fuwalo</p>
+            </div>
+
+            <div class="space-y-4">
+                <div class="faq-item bg-white rounded-2xl shadow-lg">
+                    <button
+                        class="faq-question w-full text-left p-4 md:p-6 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                        <span class="text-base md:text-lg font-semibold text-gray-900">When will Fuwalo be available on
+                            Play Store?</span>
+                        <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                    </button>
+                    <div class="faq-content">
+                        <div class="px-4 md:px-6 pb-4 md:pb-6 text-sm md:text-base text-gray-600">
+                            We're working hard to bring Fuwalo to the Play Store! Pre-register now to be notified as
+                            soon as it's available. We expect to launch in Q2 2025.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item bg-white rounded-2xl shadow-lg">
+                    <button
+                        class="faq-question w-full text-left p-4 md:p-6 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                        <span class="text-base md:text-lg font-semibold text-gray-900">What's the difference between
+                            beta and the full version?</span>
+                        <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                    </button>
+                    <div class="faq-content">
+                        <div class="px-4 md:px-6 pb-4 md:pb-6 text-sm md:text-base text-gray-600">
+                            The beta version includes all core features like piano playing, MIDI uploads, and basic
+                            multiplayer. The full version will have additional songs, advanced lessons, and enhanced
+                            social features.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item bg-white rounded-2xl shadow-lg">
+                    <button
+                        class="faq-question w-full text-left p-4 md:p-6 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                        <span class="text-base md:text-lg font-semibold text-gray-900">Do I need a real piano to use
+                            Fuwalo?</span>
+                        <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                    </button>
+                    <div class="faq-content">
+                        <div class="px-4 md:px-6 pb-4 md:pb-6 text-sm md:text-base text-gray-600">
+                            No! Fuwalo works entirely on your mobile device. The virtual piano has realistic sound and
+                            touch response, making it perfect for learning and practice anywhere.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item bg-white rounded-2xl shadow-lg">
+                    <button
+                        class="faq-question w-full text-left p-4 md:p-6 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                        <span class="text-base md:text-lg font-semibold text-gray-900">Can I play with friends in
+                            multiplayer mode?</span>
+                        <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                    </button>
+                    <div class="faq-content">
+                        <div class="px-4 md:px-6 pb-4 md:pb-6 text-sm md:text-base text-gray-600">
+                            Yes! Fuwalo's multiplayer feature allows you to create rooms and play synchronized piano
+                            with friends or join public rooms to meet other musicians.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item bg-white rounded-2xl shadow-lg">
+                    <button
+                        class="faq-question w-full text-left p-4 md:p-6 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                        <span class="text-base md:text-lg font-semibold text-gray-900">Is Fuwalo free to use?</span>
+                        <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                    </button>
+                    <div class="faq-content">
+                        <div class="px-4 md:px-6 pb-4 md:pb-6 text-sm md:text-base text-gray-600">
+                            Fuwalo will be free to download with optional premium features. The beta is completely free
+                            and includes all current features.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap Preview Section -->
+    <section class="py-10 md:py-20 bg-gradient-to-br from-purple-50 to-blue-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8 md:mb-16 scroll-animate">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4">What's Coming Next</h2>
+                <p class="text-base md:text-xl text-gray-600 max-w-3xl mx-auto">Our roadmap for the future of piano
+                    learning</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
+                <div class="bg-white rounded-2xl p-4 md:p-8 shadow-lg scroll-animate">
+                    <div class="flex items-center mb-3 md:mb-4">
+                        <div
+                            class="bg-green-100 text-green-600 rounded-full w-8 h-8 md:w-10 md:h-10 flex items-center justify-center mr-3 md:mr-4 text-sm md:text-base">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-bold text-gray-900">Completed</h3>
+                    </div>
+                    <ul class="space-y-1 md:space-y-2 text-sm md:text-base text-gray-600">
+                        <li>• Core piano engine</li>
+                        <li>• MIDI file support</li>
+                        <li>• Basic multiplayer</li>
+                        <li>• User accounts</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 md:p-8 shadow-lg scroll-animate">
+                    <div class="flex items-center mb-3 md:mb-4">
+                        <div
+                            class="bg-blue-100 text-blue-600 rounded-full w-8 h-8 md:w-10 md:h-10 flex items-center justify-center mr-3 md:mr-4 text-sm md:text-base">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-bold text-gray-900">In Development</h3>
+                    </div>
+                    <ul class="space-y-1 md:space-y-2 text-sm md:text-base text-gray-600">
+                        <li>• Advanced lessons</li>
+                        <li>• AI-powered feedback</li>
+                        <li>• More song library</li>
+                        <li>• iOS version</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 md:p-8 shadow-lg scroll-animate">
+                    <div class="flex items-center mb-3 md:mb-4">
+                        <div
+                            class="bg-purple-100 text-purple-600 rounded-full w-8 h-8 md:w-10 md:h-10 flex items-center justify-center mr-3 md:mr-4 text-sm md:text-base">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-bold text-gray-900">Planned</h3>
+                    </div>
+                    <ul class="space-y-1 md:space-y-2 text-sm md:text-base text-gray-600">
+                        <li>• AR piano lessons</li>
+                        <li>• Live competitions</li>
+                        <li>• Teacher dashboard</li>
+                        <li>• Advanced analytics</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="roadmap.html"
+                    class="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-bold py-3 px-8 rounded-full inline-flex items-center transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-road mr-2"></i> View Full Roadmap
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join the Community -->
+    <section id="community" class="py-20" style="background: linear-gradient(135deg, #6A578D 0%, #B29CBF 100%);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-white mb-4">Join Our Community</h2>
+                <p class="text-xl text-white opacity-90 max-w-3xl mx-auto">Connect with other piano enthusiasts, get
+                    updates, and share your progress.</p>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center justify-center gap-8">
+                <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-2xl p-8 w-full max-w-md">
+                    <h3 class="text-xl font-bold text-white mb-6">Stay Updated</h3>
+                    <p class="text-white opacity-90 mb-6">Enter your email to get notified about updates and receive
+                        exclusive content.</p>
+
+                    <form class="flex">
+                        <input type="email" placeholder="Your email address"
+                            class="flex-grow px-4 py-3 rounded-l-full focus:outline-none">
+                        <button
+                            class="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-bold px-6 py-3 rounded-r-full">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+
+                <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-2xl p-8 w-full max-w-md">
+                    <h3 class="text-xl font-bold text-white mb-6">Connect With Us</h3>
+                    <p class="text-white opacity-90 mb-6">Join our Discord server or follow us on social media.</p>
+
+                    <div class="flex justify-center space-x-6">
+                        <a href="https://discord.gg/xDeDbSNDhq"
+                            class="bg-white bg-opacity-30 hover:bg-opacity-40 rounded-full p-3 text-white">
+                            <i class="fab fa-discord text-xl"></i>
+                        </a>
+                        <a href="#" class="bg-white bg-opacity-30 hover:bg-opacity-40 rounded-full p-3 text-white">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="bg-white bg-opacity-30 hover:bg-opacity-40 rounded-full p-3 text-white">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="bg-white bg-opacity-30 hover:bg-opacity-40 rounded-full p-3 text-white">
+                            <i class="fab fa-youtube text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Action Button -->
+    <div class="floating-action">
+        <a href="#download" class="btn-fab" aria-label="Download beta">
+            <i class="fas fa-download text-xl md:text-2xl" aria-hidden="true"></i>
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-deeppurple text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-music text-purple-400 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold">Fuwalo</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">Your piano playground for learning, playing, and connecting with music
+                        lovers worldwide.</p>
+                    <div class="flex space-x-4">
+                        <a href="/blog" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://x.com/fuwalo_ai" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://discord.gg/xDeDbSNDhq" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Product</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#features" class="text-gray-400 hover:text-white">Features</a></li>
+                        <li><a href="#download" class="text-gray-400 hover:text-white">Download</a></li>
+                        <li><a href="#screenshots" class="text-gray-400 hover:text-white">Screenshots</a></li>
+                        <li><a href="roadmap.html" class="text-gray-400 hover:text-white">Roadmap</a></li>
+                        <li><a href="faq.html" class="text-gray-400 hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Company</h3>
+                    <ul class="space-y-2">
+                        <li><a href="about.html" class="text-gray-400 hover:text-white">About</a></li>
+                        <li><a href="community.html" class="text-gray-400 hover:text-white">Community</a></li>
+                        <li><a href="users.html" class="text-gray-400 hover:text-white">User Stats</a></li>
+                        <li><a href="https://discord.gg/xDeDbSNDhq" class="text-gray-400 hover:text-white">Discord</a>
+                        </li>
+                        <li><a href="https://x.com/fuwalo_ai" class="text-gray-400 hover:text-white">Twitter</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="privacy.html" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="terms.html" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                        <li><a href="faq.html" class="text-gray-400 hover:text-white">Support</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">© 2023 Fuwalo. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white text-sm">Privacy</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm">Terms</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm">FAQ</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Loading Screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').classList.add('fade-out');
+                setTimeout(() => {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                    setTimeout(animateCounters, 200);
+                }, 500);
+            }, 1500);
+        });
+
+        // Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.offsetHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.getElementById('scrollProgress').style.width = scrollPercent + '%';
+        });
+
+        // Counter Animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'), 10);
+                const suffix = counter.getAttribute('data-suffix') || '';
+                const duration = 2000;
+                const increment = target / (duration / 16);
+                let current = 0;
+
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    counter.textContent = Math.floor(current).toLocaleString() + suffix;
+                }, 16);
+            });
+        }
+
+        // Scroll Animation Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+
+                    // Trigger counter animation for statistics section
+                    if (entry.target.classList.contains('counter')) {
+                        animateCounters();
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all scroll-animate elements
+        document.querySelectorAll('.scroll-animate').forEach(el => {
+            observer.observe(el);
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                const isActive = faqItem.classList.contains('active');
+
+                // Close all FAQ items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                    const icon = item.querySelector('.fa-chevron-down');
+                    icon.style.transform = 'rotate(0deg)';
+                });
+
+                // Open clicked item if it wasn't active
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                    const icon = question.querySelector('.fa-chevron-down');
+                    icon.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+
+        // Parallax Effect
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.parallax');
+
+            parallaxElements.forEach(element => {
+                const speed = 0.5;
+                element.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+        // Carousel (screenshot gallery)
+        let currentSlide = 0;
+        const carouselEl = document.getElementById('carousel');
+        const slides = document.querySelectorAll('.carousel-item');
+        const indicators = document.querySelectorAll('.carousel-indicator');
+        const nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+
+        function goToSlide(index) {
+            if (!carouselEl || slides.length === 0) return;
+            currentSlide = Math.max(0, Math.min(index, slides.length - 1));
+            carouselEl.style.transform = 'translateX(' + (-currentSlide * 100) + '%)';
+            indicators.forEach(function (indicator, i) {
+                if (i === currentSlide) {
+                    indicator.classList.add('bg-gray-600');
+                    indicator.classList.remove('bg-gray-300');
+                } else {
+                    indicator.classList.add('bg-gray-300');
+                    indicator.classList.remove('bg-gray-600');
+                }
+            });
+        }
+
+        if (nextBtn) nextBtn.addEventListener('click', function () {
+            currentSlide = (currentSlide + 1) % slides.length;
+            goToSlide(currentSlide);
+        });
+        if (prevBtn) prevBtn.addEventListener('click', function () {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            goToSlide(currentSlide);
+        });
+        indicators.forEach(function (indicator) {
+            indicator.addEventListener('click', function () {
+                goToSlide(parseInt(indicator.dataset.index, 10));
+            });
+        });
+        if (indicators[0]) {
+            indicators[0].classList.add('bg-gray-600');
+            indicators[0].classList.remove('bg-gray-300');
+        }
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true' || false;
+            mobileMenuButton.setAttribute('aria-expanded', !expanded);
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+
+                    // Close mobile menu if open
+                    if (mobileMenu.classList.contains('active')) {
+                        mobileMenu.classList.remove('active');
+                        mobileMenuButton.setAttribute('aria-expanded', 'false');
+                    }
+                }
+            });
+        });
+
+        // Video: play/pause and overlay visibility
+        (function () {
+            var container = document.getElementById('fuwaloVideoContainer');
+            var video = document.getElementById('fuwaloVideo');
+            var overlay = document.getElementById('videoOverlay');
+            var playBtn = document.getElementById('videoPlayBtn');
+            if (!container || !video || !overlay || !playBtn) return;
+
+            function showOverlay() {
+                container.classList.remove('playing');
+                overlay.setAttribute('aria-hidden', 'false');
+            }
+            function hideOverlay() {
+                container.classList.add('playing');
+                overlay.setAttribute('aria-hidden', 'true');
+            }
+
+            playBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                video.play();
+                hideOverlay();
+            });
+            video.addEventListener('play', hideOverlay);
+            video.addEventListener('pause', showOverlay);
+            video.addEventListener('ended', showOverlay);
+        })();
+
+        // Hero floating notes are static (no dynamic spawn) for a calmer, premium look
+    </script>
+</body>
+
+</html>

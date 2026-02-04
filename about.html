@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Fuwalo - Revolutionary Piano Learning Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        purple: '#CBB4FF',
+                        blue: '#B8E0FF',
+                        pink: '#FFD6EC',
+                        discord: '#5865F2',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #A58CD5 0%, #6A578D 100%);
+        }
+
+        .animated-gradient {
+            background: linear-gradient(-45deg, #A58CD5, #6A578D, #B29CBF, #CBB4FF);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .scroll-animate.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .navbar {
+            background-color: rgba(248, 244, 252, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .mobile-menu {
+            display: none;
+        }
+
+        .mobile-menu.active {
+            display: block;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 50;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .mobile-menu li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-menu a {
+            display: block;
+            width: 100%;
+            padding: 0.5rem;
+            text-align: center;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .mobile-menu a:hover {
+            color: #7B61FF;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: #7B61FF;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #7B61FF;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 12px;
+            width: 2px;
+            height: calc(100% + 1rem);
+            background: linear-gradient(to bottom, #7B61FF, transparent);
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+
+        .team-card {
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+    <!-- Navigation -->
+    <nav class="navbar py-4 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <a href="index.html" class="flex items-center">
+                            <i class="fas fa-music text-purple-500 text-3xl mr-2"></i>
+                            <span class="text-xl font-bold text-gray-900">Fuwalo</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-center space-x-4">
+                        <a href="index.html" class="text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="about.html" class="text-purple-500 px-3 py-2 rounded-md text-sm font-medium">About</a>
+                        <a href="roadmap.html" class="text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium">Roadmap</a>
+                        <a href="community.html" class="text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium">Community</a>
+                        <a href="faq.html" class="text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium">FAQ</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button type="button" class="mobile-menu-button inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-purple-500 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div class="mobile-menu" id="mobile-menu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="roadmap.html">Roadmap</a></li>
+                    <li><a href="community.html">Community</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li>
+                        <a href="https://discord.gg/xDeDbSNDhq" class="bg-discord text-white px-4 py-2 rounded-md inline-block">
+                            <i class="fab fa-discord mr-2"></i>Join Discord
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="animated-gradient pt-32 pb-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center text-white">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6 scroll-animate">
+                    About Fuwalo
+                </h1>
+                <p class="text-xl opacity-90 max-w-3xl mx-auto scroll-animate">
+                    We're on a mission to revolutionize piano learning through technology, community, and innovation.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="scroll-animate">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Our Mission</h2>
+                    <p class="text-lg text-gray-600 mb-6">
+                        At Fuwalo, we believe that learning piano should be accessible, fun, and social. Our mission is to break down the barriers that prevent people from experiencing the joy of music.
+                    </p>
+                    <p class="text-lg text-gray-600 mb-8">
+                        Through innovative technology, we're creating a platform where anyone can learn piano at their own pace, connect with fellow musicians, and share their musical journey with the world.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-purple-600 mb-2">2.5K+</div>
+                            <div class="text-gray-600">Active Users</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-blue-600 mb-2">45</div>
+                            <div class="text-gray-600">Countries</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="scroll-animate">
+                    <div class="bg-gradient-to-br from-purple-100 to-blue-100 rounded-2xl p-8">
+                        <div class="text-center">
+                            <i class="fas fa-heart text-purple-600 text-6xl mb-6"></i>
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4">Why We Do This</h3>
+                            <p class="text-gray-600">
+                                Music has the power to bring people together, express emotions, and create lasting memories. We want to make that power accessible to everyone.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-animate">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Values</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">The principles that guide everything we do</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl p-8 shadow-lg scroll-animate">
+                    <div class="bg-purple-100 w-16 h-16 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-users text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Community First</h3>
+                    <p class="text-gray-600">We believe in the power of community. Every feature we build is designed to bring people together and foster meaningful connections.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-lg scroll-animate">
+                    <div class="bg-blue-100 w-16 h-16 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-lightbulb text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Innovation</h3>
+                    <p class="text-gray-600">We're constantly pushing the boundaries of what's possible in music education, using cutting-edge technology to create better learning experiences.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-lg scroll-animate">
+                    <div class="bg-pink-100 w-16 h-16 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-heart text-pink-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Accessibility</h3>
+                    <p class="text-gray-600">Music should be for everyone. We're committed to making piano learning accessible regardless of background, location, or experience level.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-animate">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Meet Our Team</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">The passionate people behind Fuwalo</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="team-card bg-white rounded-2xl p-8 shadow-lg text-center">
+                    <div class="w-24 h-24 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full mx-auto mb-6 flex items-center justify-center">
+                        <span class="text-white text-2xl font-bold">AS</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Alex Smith</h3>
+                    <p class="text-purple-600 font-medium mb-4">Founder & CEO</p>
+                    <p class="text-gray-600 text-sm">Music technology enthusiast with 10+ years in app development. Passionate about making music education accessible to everyone.</p>
+                </div>
+
+                <div class="team-card bg-white rounded-2xl p-8 shadow-lg text-center">
+                    <div class="w-24 h-24 bg-gradient-to-br from-blue-500 to-pink-500 rounded-full mx-auto mb-6 flex items-center justify-center">
+                        <span class="text-white text-2xl font-bold">MJ</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Maria Johnson</h3>
+                    <p class="text-blue-600 font-medium mb-4">Lead Developer</p>
+                    <p class="text-gray-600 text-sm">Full-stack developer specializing in real-time applications. Loves creating seamless multiplayer experiences.</p>
+                </div>
+
+                <div class="team-card bg-white rounded-2xl p-8 shadow-lg text-center">
+                    <div class="w-24 h-24 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full mx-auto mb-6 flex items-center justify-center">
+                        <span class="text-white text-2xl font-bold">DW</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">David Wilson</h3>
+                    <p class="text-pink-600 font-medium mb-4">Music Director</p>
+                    <p class="text-gray-600 text-sm">Professional pianist and music educator. Ensures our lessons are pedagogically sound and musically accurate.</p>
+                </div>
+
+                <div class="team-card bg-white rounded-2xl p-8 shadow-lg text-center">
+                    <div class="w-24 h-24 bg-gradient-to-br from-green-500 to-blue-500 rounded-full mx-auto mb-6 flex items-center justify-center">
+                        <span class="text-white text-2xl font-bold">SC</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Sarah Chen</h3>
+                    <p class="text-green-600 font-medium mb-4">UX Designer</p>
+                    <p class="text-gray-600 text-sm">User experience designer focused on creating intuitive and beautiful interfaces that make learning enjoyable.</p>
+                </div>
+
+                <div class="team-card bg-white rounded-2xl p-8 shadow-lg text-center">
+                    <div class="w-24 h-24 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full mx-auto mb-6 flex items-center justify-center">
+                        <span class="text-white text-2xl font-bold">RB</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Robert Brown</h3>
+                    <p class="text-yellow-600 font-medium mb-4">Community Manager</p>
+                    <p class="text-gray-600 text-sm">Builds and nurtures our amazing community of musicians. Always ready to help and connect people.</p>
+                </div>
+
+                <div class="team-card bg-white rounded-2xl p-8 shadow-lg text-center">
+                    <div class="w-24 h-24 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full mx-auto mb-6 flex items-center justify-center">
+                        <span class="text-white text-2xl font-bold">LT</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Lisa Taylor</h3>
+                    <p class="text-indigo-600 font-medium mb-4">AI Engineer</p>
+                    <p class="text-gray-600 text-sm">Develops our AI-powered feedback system to help users improve their playing with personalized guidance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Company Story Timeline -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-animate">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Journey</h2>
+                <p class="text-xl text-gray-600">How Fuwalo came to be</p>
+            </div>
+
+            <div class="space-y-8">
+                <div class="timeline-item scroll-animate">
+                    <div class="bg-white rounded-2xl p-8 shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm font-medium">2023 Q1</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">The Idea</h3>
+                        <p class="text-gray-600">Alex, frustrated with traditional piano learning methods, envisioned a social, gamified approach to piano education that would make learning fun and accessible.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item scroll-animate">
+                    <div class="bg-white rounded-2xl p-8 shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm font-medium">2023 Q2</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">First Prototype</h3>
+                        <p class="text-gray-600">The team built the first working prototype with basic piano functionality and simple multiplayer features. Initial user testing showed promising results.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item scroll-animate">
+                    <div class="bg-white rounded-2xl p-8 shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-green-100 text-green-600 px-3 py-1 rounded-full text-sm font-medium">2023 Q3</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Beta Launch</h3>
+                        <p class="text-gray-600">Fuwalo beta was released to a select group of users. The response was overwhelming, with users praising the innovative approach to piano learning.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item scroll-animate">
+                    <div class="bg-white rounded-2xl p-8 shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-pink-100 text-pink-600 px-3 py-1 rounded-full text-sm font-medium">2023 Q4</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Community Growth</h3>
+                        <p class="text-gray-600">Our Discord community grew to over 1,000 members. Users started creating and sharing their own MIDI files, building a rich library of content.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item scroll-animate">
+                    <div class="bg-white rounded-2xl p-8 shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-yellow-100 text-yellow-600 px-3 py-1 rounded-full text-sm font-medium">2024 Q1</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Play Store Preparation</h3>
+                        <p class="text-gray-600">We're now preparing for our official Play Store launch, with enhanced features, improved performance, and a growing community of 2,500+ beta users.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 animated-gradient">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="text-white scroll-animate">
+                <h2 class="text-3xl font-bold mb-6">Ready to Join Our Journey?</h2>
+                <p class="text-xl opacity-90 mb-8 max-w-3xl mx-auto">
+                    Be part of the future of piano learning. Pre-register now and help us shape the next generation of music education.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="index.html#download" class="bg-white text-purple-600 px-8 py-4 rounded-full font-semibold hover:bg-opacity-95 shadow-lg transition-all duration-300 transform hover:scale-105">
+                        <i class="fab fa-google-play mr-2"></i> Pre-register Now
+                    </a>
+                    <a href="https://discord.gg/xDeDbSNDhq" class="glassmorphism text-white px-8 py-4 rounded-full font-semibold hover:bg-opacity-20 shadow-lg transition-all duration-300 transform hover:scale-105">
+                        <i class="fab fa-discord mr-2"></i> Join Our Community
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-music text-purple-400 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold">Fuwalo</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">Your piano playground for learning, playing, and connecting with music lovers worldwide.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://x.com/fuwalo_ai" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://discord.gg/xDeDbSNDhq" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Product</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html#features" class="text-gray-400 hover:text-white">Features</a></li>
+                        <li><a href="roadmap.html" class="text-gray-400 hover:text-white">Roadmap</a></li>
+                        <li><a href="faq.html" class="text-gray-400 hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Company</h3>
+                    <ul class="space-y-2">
+                        <li><a href="about.html" class="text-gray-400 hover:text-white">About</a></li>
+                        <li><a href="community.html" class="text-gray-400 hover:text-white">Community</a></li>
+                        <li><a href="privacy.html" class="text-gray-400 hover:text-white">Privacy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                <p class="text-gray-400">© 2024 Fuwalo. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Animation Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all scroll-animate elements
+        document.querySelectorAll('.scroll-animate').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true' || false;
+            mobileMenuButton.setAttribute('aria-expanded', !expanded);
+            mobileMenu.classList.toggle('active');
+        });
+    </script>
+</body>
+
+</html>
+

@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Fuwalo Piano Learning Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        purple: '#CBB4FF',
+                        blue: '#B8E0FF',
+                        pink: '#FFD6EC',
+                        discord: '#5865F2',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #A58CD5 0%, #6A578D 100%);
+        }
+
+        .animated-gradient {
+            background: linear-gradient(-45deg, #A58CD5, #6A578D, #B29CBF, #CBB4FF);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .scroll-animate.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .navbar {
+            background-color: rgba(248, 244, 252, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .mobile-menu {
+            display: none;
+        }
+
+        .mobile-menu.active {
+            display: block;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 50;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .mobile-menu li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-menu a {
+            display: block;
+            width: 100%;
+            padding: 0.5rem;
+            text-align: center;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .mobile-menu a:hover {
+            color: #7B61FF;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-content {
+            max-height: 500px;
+        }
+
+        .search-box {
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px -5px rgba(123, 97, 255, 0.3);
+        }
+
+        .category-tab {
+            transition: all 0.3s ease;
+        }
+
+        .category-tab.active {
+            background: linear-gradient(135deg, #7B61FF, #00A3FF);
+            color: white;
+        }
+
+        .category-tab:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+    <!-- Navigation -->
+    <nav class="navbar py-4 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <a href="index.html" class="flex items-center">
+                            <i class="fas fa-music text-purple-500 text-3xl mr-2"></i>
+                            <span class="text-xl font-bold text-gray-900">Fuwalo</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-center space-x-4">
+                        <a href="index.html" class="text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="about.html" class="text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium">About</a>
+                        <a href="roadmap.html" class="text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium">Roadmap</a>
+                        <a href="community.html" class="text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium">Community</a>
+                        <a href="faq.html" class="text-purple-500 px-3 py-2 rounded-md text-sm font-medium">FAQ</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button type="button" class="mobile-menu-button inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-purple-500 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div class="mobile-menu" id="mobile-menu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="roadmap.html">Roadmap</a></li>
+                    <li><a href="community.html">Community</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li>
+                        <a href="https://discord.gg/xDeDbSNDhq" class="bg-discord text-white px-4 py-2 rounded-md inline-block">
+                            <i class="fab fa-discord mr-2"></i>Join Discord
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="animated-gradient pt-32 pb-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center text-white">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6 scroll-animate">
+                    Frequently Asked Questions
+                </h1>
+                <p class="text-xl opacity-90 max-w-3xl mx-auto scroll-animate">
+                    Find answers to common questions about Fuwalo. Can't find what you're looking for? Join our Discord community!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="py-12 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8 scroll-animate">
+                <div class="relative max-w-2xl mx-auto">
+                    <input type="text" id="searchInput" placeholder="Search for questions..." 
+                           class="search-box w-full px-6 py-4 pl-12 rounded-full border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-lg">
+                    <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Tabs -->
+    <section class="py-8 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-wrap justify-center gap-4">
+                <button class="category-tab active px-6 py-3 rounded-full font-medium transition-all duration-300" data-category="all">
+                    All Questions
+                </button>
+                <button class="category-tab bg-white text-gray-700 px-6 py-3 rounded-full font-medium transition-all duration-300" data-category="getting-started">
+                    Getting Started
+                </button>
+                <button class="category-tab bg-white text-gray-700 px-6 py-3 rounded-full font-medium transition-all duration-300" data-category="features">
+                    Features
+                </button>
+                <button class="category-tab bg-white text-gray-700 px-6 py-3 rounded-full font-medium transition-all duration-300" data-category="technical">
+                    Technical
+                </button>
+                <button class="category-tab bg-white text-gray-700 px-6 py-3 rounded-full font-medium transition-all duration-300" data-category="account">
+                    Account
+                </button>
+                <button class="category-tab bg-white text-gray-700 px-6 py-3 rounded-full font-medium transition-all duration-300" data-category="community">
+                    Community
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Content -->
+    <section class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Getting Started -->
+            <div class="faq-category" data-category="getting-started">
+                <h2 class="text-2xl font-bold text-gray-900 mb-8 scroll-animate">Getting Started</h2>
+                <div class="space-y-4 mb-12">
+                    <div class="faq-item bg-white rounded-2xl shadow-lg scroll-animate">
+                        <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-900">How do I get started with Fuwalo?</span>
+                            <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                        </button>
+                        <div class="faq-content">
+                            <div class="px-6 pb-6 text-gray-600">
+                                <p class="mb-4">Getting started with Fuwalo is easy:</p>
+                                <ol class="list-decimal list-inside space-y-2 ml-4">
+                                    <li>Pre-register on Play Store or download the beta APK</li>
+                                    <li>Create your account and complete the setup</li>
+                                    <li>Take the skill assessment to get personalized lessons</li>
+                                    <li>Start with the beginner lessons or explore the song library</li>
+                                    <li>Join our Discord community for tips and support</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item bg-white rounded-2xl shadow-lg scroll-animate">
+                        <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-900">Do I need any prior piano experience?</span>
+                            <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                        </button>
+                        <div class="faq-content">
+                            <div class="px-6 pb-6 text-gray-600">
+                                <p>Not at all! Fuwalo is designed for complete beginners as well as experienced players. Our adaptive learning system adjusts to your skill level, providing appropriate challenges whether you're just starting out or looking to improve your existing skills.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item bg-white rounded-2xl shadow-lg scroll-animate">
+                        <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-900">What equipment do I need?</span>
+                            <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                        </button>
+                        <div class="faq-content">
+                            <div class="px-6 pb-6 text-gray-600">
+                                <p>You only need your mobile device! Fuwalo works entirely on your phone or tablet. The virtual piano has realistic sound and touch response, making it perfect for learning and practice. No external piano or additional equipment required.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features -->
+            <div class="faq-category" data-category="features">
+                <h2 class="text-2xl font-bold text-gray-900 mb-8 scroll-animate">Features</h2>
+                <div class="space-y-4 mb-12">
+                    <div class="faq-item bg-white rounded-2xl shadow-lg scroll-animate">
+                        <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-900">What features are available in the beta?</span>
+                            <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                        </button>
+                        <div class="faq-content">
+                            <div class="px-6 pb-6 text-gray-600">
+                                <p class="mb-4">The beta version includes:</p>
+                                <ul class="list-disc list-inside space-y-2 ml-4">
+                                    <li>Full virtual piano with realistic sound</li>
+                                    <li>MIDI file upload and playback</li>
+                                    <li>Basic multiplayer functionality</li>
+                                    <li>User accounts and progress tracking</li>
+                                    <li>Community sharing features</li>
+                                    <li>Performance recording</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item bg-white rounded-2xl shadow-lg scroll-animate">
+                        <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-900">How does the multiplayer feature work?</span>
+                            <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                        </button>
+                        <div class="faq-content">
+                            <div class="px-6 pb-6 text-gray-600">
+                                <p>Fuwalo's multiplayer feature allows you to create or join rooms where multiple players can play the same song together in real-time. You can play with friends by sharing room codes or join public rooms to meet other musicians. The system synchronizes everyone's playing for a collaborative musical experience.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item bg-white rounded-2xl shadow-lg scroll-animate">
+                        <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-900">Can I upload my own songs?</span>
+                            <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                        </button>
+                        <div class="faq-content">
+                            <div class="px-6 pb-6 text-gray-600">
+                                <p>Yes! You can upload MIDI files to play your favorite songs. Simply import the MIDI file through the app, and Fuwalo will convert it into a playable format. You can then practice the song, record your performance, and even share it with the community.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical -->
+            <div class="faq-category" data-category="technical">
+                <h2 class="text-2xl font-bold text-gray-900 mb-8 scroll-animate">Technical</h2>
+                <div class="space-y-4 mb-12">
+                    <div class="faq-item bg-white rounded-2xl shadow-lg scroll-animate">
+                        <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-900">What are the system requirements?</span>
+                            <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                        </button>
+                        <div class="faq-content">
+                            <div class="px-6 pb-6 text-gray-600">
+                                <p class="mb-4">For Android:</p>
+                                <ul class="list-disc list-inside space-y-1 ml-4 mb-4">
+                                    <li>Android 8.0 or higher</li>
+                                    <li>2GB RAM minimum (4GB recommended)</li>
+                                    <li>500MB free storage space</li>
+                                    <li>Internet connection for multiplayer features</li>
+                                </ul>
+                                <p class="mb-2">For iOS (coming soon):</p>
+                                <ul class="list-disc list-inside space-y-1 ml-4">
+                                    <li>iOS 13.0 or higher</li>
+                                    <li>iPhone 7 or newer</li>
+                                    <li>500MB free storage space</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item bg-white rounded-2xl shadow-lg scroll-animate">
+                        <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-900">Why is the app lagging or crashing?</span>
+                            <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                        </button>
+                        <div class="faq-content">
+                            <div class="px-6 pb-6 text-gray-600">
+                                <p class="mb-4">If you're experiencing performance issues, try these solutions:</p>
+                                <ul class="list-disc list-inside space-y-2 ml-4">
+                                    <li>Close other apps to free up memory</li>
+                                    <li>Restart your device</li>
+                                    <li>Check your internet connection</li>
+                                    <li>Update to the latest version of Fuwalo</li>
+                                    <li>Clear the app's cache in your device settings</li>
+                                </ul>
+                                <p class="mt-4">If problems persist, please contact our support team through Discord.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item bg-white rounded-2xl shadow-lg scroll-animate">
+                        <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-900">How do I update the app?</span>
+                            <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                        </button>
+                        <div class="faq-content">
+                            <div class="px-6 pb-6 text-gray-600">
+                                <p>For the beta version, you'll need to download the latest APK from our website. When the app launches on Play Store, updates will be automatic through the Google Play Store. We'll notify you of new updates through our Discord community and in-app notifications.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Account -->
+            <div class="faq-category" data-category="account">
+                <h2 class="text-2xl font-bold text-gray-900 mb-8 scroll-animate">Account</h2>
+                <div class="space-y-4 mb-12">
+                    <div class="faq-item bg-white rounded-2xl shadow-lg scroll-animate">
+                        <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-900">How do I create an account?</span>
+                            <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                        </button>
+                        <div class="faq-content">
+                            <div class="px-6 pb-6 text-gray-600">
+                                <p>Creating an account is simple:</p>
+                                <ol class="list-decimal list-inside space-y-2 ml-4 mt-2">
+                                    <li>Open the Fuwalo app</li>
+                                    <li>Tap "Create Account" on the welcome screen</li>
+                                    <li>Enter your email address and create a password</li>
+                                    <li>Verify your email address</li>
+                                    <li>Complete your profile setup</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item bg-white rounded-2xl shadow-lg scroll-animate">
+                        <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-900">Can I sync my progress across devices?</span>
+                            <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                        </button>
+                        <div class="faq-content">
+                            <div class="px-6 pb-6 text-gray-600">
+                                <p>Yes! Your progress, achievements, and saved songs are automatically synced to your account. Simply log in with the same account on any device, and your progress will be available. This works across Android devices and will work on iOS when it launches.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item bg-white rounded-2xl shadow-lg scroll-animate">
+                        <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-900">How do I reset my password?</span>
+                            <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                        </button>
+                        <div class="faq-content">
+                            <div class="px-6 pb-6 text-gray-600">
+                                <p>To reset your password:</p>
+                                <ol class="list-decimal list-inside space-y-2 ml-4 mt-2">
+                                    <li>Go to the login screen</li>
+                                    <li>Tap "Forgot Password"</li>
+                                    <li>Enter your email address</li>
+                                    <li>Check your email for reset instructions</li>
+                                    <li>Follow the link to create a new password</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Community -->
+            <div class="faq-category" data-category="community">
+                <h2 class="text-2xl font-bold text-gray-900 mb-8 scroll-animate">Community</h2>
+                <div class="space-y-4 mb-12">
+                    <div class="faq-item bg-white rounded-2xl shadow-lg scroll-animate">
+                        <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-900">How do I join the Discord community?</span>
+                            <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                        </button>
+                        <div class="faq-content">
+                            <div class="px-6 pb-6 text-gray-600">
+                                <p>Joining our Discord community is easy:</p>
+                                <ol class="list-decimal list-inside space-y-2 ml-4 mt-2">
+                                    <li>Click the Discord link on our website or in the app</li>
+                                    <li>Create a Discord account if you don't have one</li>
+                                    <li>Accept the server rules and introduce yourself</li>
+                                    <li>Start chatting with other piano learners!</li>
+                                </ol>
+                                <p class="mt-4">Our Discord server has channels for different topics, including general chat, performance sharing, help and support, and community events.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item bg-white rounded-2xl shadow-lg scroll-animate">
+                        <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-900">How can I share my performances?</span>
+                            <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                        </button>
+                        <div class="faq-content">
+                            <div class="px-6 pb-6 text-gray-600">
+                                <p>You can share your performances in several ways:</p>
+                                <ul class="list-disc list-inside space-y-2 ml-4 mt-2">
+                                    <li>Record your performance directly in the app</li>
+                                    <li>Upload the recording to the community section</li>
+                                    <li>Share it in our Discord server's performance channel</li>
+                                    <li>Post it on social media with #Fuwalo</li>
+                                </ul>
+                                <p class="mt-4">The community loves to see progress and provide feedback, so don't be shy about sharing your performances!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item bg-white rounded-2xl shadow-lg scroll-animate">
+                        <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-900">Are there community events I can join?</span>
+                            <i class="fas fa-chevron-down text-purple-600 transition-transform"></i>
+                        </button>
+                        <div class="faq-content">
+                            <div class="px-6 pb-6 text-gray-600">
+                                <p>Yes! We regularly host community events including:</p>
+                                <ul class="list-disc list-inside space-y-2 ml-4 mt-2">
+                                    <li>Monthly competitions with prizes</li>
+                                    <li>Weekly community jam sessions</li>
+                                    <li>Beginner workshops and tutorials</li>
+                                    <li>Live Q&A sessions with the development team</li>
+                                    <li>Collaborative music creation challenges</li>
+                                </ul>
+                                <p class="mt-4">Check our Discord server and the events section in the app for upcoming events and how to participate.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Support -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="scroll-animate">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Still Have Questions?</h2>
+                <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                    Can't find the answer you're looking for? Our community and support team are here to help!
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="https://discord.gg/xDeDbSNDhq" class="bg-discord text-white px-8 py-4 rounded-full font-semibold hover:bg-opacity-95 shadow-lg transition-all duration-300 transform hover:scale-105">
+                        <i class="fab fa-discord mr-2"></i> Ask on Discord
+                    </a>
+                    <a href="mailto:support@fuwalo.com" class="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white px-8 py-4 rounded-full font-semibold shadow-lg transition-all duration-300 transform hover:scale-105">
+                        <i class="fas fa-envelope mr-2"></i> Email Support
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-music text-purple-400 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold">Fuwalo</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">Your piano playground for learning, playing, and connecting with music lovers worldwide.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://x.com/fuwalo_ai" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://discord.gg/xDeDbSNDhq" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Product</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html#features" class="text-gray-400 hover:text-white">Features</a></li>
+                        <li><a href="roadmap.html" class="text-gray-400 hover:text-white">Roadmap</a></li>
+                        <li><a href="faq.html" class="text-gray-400 hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Company</h3>
+                    <ul class="space-y-2">
+                        <li><a href="about.html" class="text-gray-400 hover:text-white">About</a></li>
+                        <li><a href="community.html" class="text-gray-400 hover:text-white">Community</a></li>
+                        <li><a href="privacy.html" class="text-gray-400 hover:text-white">Privacy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                <p class="text-gray-400">© 2024 Fuwalo. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Animation Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all scroll-animate elements
+        document.querySelectorAll('.scroll-animate').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true' || false;
+            mobileMenuButton.setAttribute('aria-expanded', !expanded);
+            mobileMenu.classList.toggle('active');
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                const isActive = faqItem.classList.contains('active');
+                
+                // Close all FAQ items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                    const icon = item.querySelector('.fa-chevron-down');
+                    icon.style.transform = 'rotate(0deg)';
+                });
+                
+                // Open clicked item if it wasn't active
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                    const icon = question.querySelector('.fa-chevron-down');
+                    icon.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+
+        // Category Filtering
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const category = tab.dataset.category;
+                
+                // Update active tab
+                document.querySelectorAll('.category-tab').forEach(t => {
+                    t.classList.remove('active');
+                    t.classList.add('bg-white', 'text-gray-700');
+                });
+                tab.classList.add('active');
+                tab.classList.remove('bg-white', 'text-gray-700');
+                
+                // Show/hide FAQ categories
+                document.querySelectorAll('.faq-category').forEach(cat => {
+                    if (category === 'all' || cat.dataset.category === category) {
+                        cat.style.display = 'block';
+                    } else {
+                        cat.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Search Functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question span').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-content').textContent.toLowerCase();
+                
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
+

@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roadmap - Fuwalo Piano Learning Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        purple: '#CBB4FF',
+                        blue: '#B8E0FF',
+                        pink: '#FFD6EC',
+                        discord: '#5865F2',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #A58CD5 0%, #6A578D 100%);
+        }
+
+        .animated-gradient {
+            background: linear-gradient(-45deg, #A58CD5, #6A578D, #B29CBF, #CBB4FF);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .scroll-animate.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .navbar {
+            background-color: rgba(248, 244, 252, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .mobile-menu {
+            display: none;
+        }
+
+        .mobile-menu.active {
+            display: block;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 50;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .mobile-menu li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-menu a {
+            display: block;
+            width: 100%;
+            padding: 0.5rem;
+            text-align: center;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .mobile-menu a:hover {
+            color: #7B61FF;
+        }
+
+        .roadmap-timeline {
+            position: relative;
+        }
+
+        .roadmap-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #7B61FF, #00A3FF);
+            transform: translateX(-50%);
+        }
+
+        .roadmap-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .roadmap-item:nth-child(odd) .roadmap-content {
+            margin-right: 50%;
+            padding-right: 2rem;
+        }
+
+        .roadmap-item:nth-child(even) .roadmap-content {
+            margin-left: 50%;
+            padding-left: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .roadmap-timeline::before {
+                left: 1.5rem;
+            }
+            
+            .roadmap-item {
+                margin-bottom: 1.5rem;
+            }
+            
+            .roadmap-item:nth-child(odd) .roadmap-content,
+            .roadmap-item:nth-child(even) .roadmap-content {
+                margin-left: 0;
+                margin-right: 0;
+                padding-left: 3rem;
+                padding-right: 0;
+            }
+            
+            .roadmap-item::before {
+                left: 1.5rem;
+            }
+        }
+
+        .roadmap-item::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 2rem;
+            width: 16px;
+            height: 16px;
+            background: #7B61FF;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 0 0 4px #7B61FF;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .roadmap-item.completed::before {
+            background: #10B981;
+            box-shadow: 0 0 0 4px #10B981;
+        }
+
+        .roadmap-item.in-progress::before {
+            background: #F59E0B;
+            box-shadow: 0 0 0 4px #F59E0B;
+            animation: pulse 2s infinite;
+        }
+
+        .roadmap-item.planned::before {
+            background: #6B7280;
+            box-shadow: 0 0 0 4px #6B7280;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.1); }
+        }
+
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .vote-button {
+            transition: all 0.3s ease;
+        }
+
+        .vote-button:hover {
+            transform: scale(1.05);
+        }
+
+        .vote-button.voted {
+            background: #7B61FF;
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+    <!-- Navigation -->
+    <nav class="navbar py-4 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <a href="index.html" class="flex items-center">
+                            <i class="fas fa-music text-purple-500 text-3xl mr-2"></i>
+                            <span class="text-xl font-bold text-gray-900">Fuwalo</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-center space-x-4">
+                        <a href="index.html" class="text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="about.html" class="text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium">About</a>
+                        <a href="roadmap.html" class="text-purple-500 px-3 py-2 rounded-md text-sm font-medium">Roadmap</a>
+                        <a href="community.html" class="text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium">Community</a>
+                        <a href="faq.html" class="text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium">FAQ</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button type="button" class="mobile-menu-button inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-purple-500 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div class="mobile-menu" id="mobile-menu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="roadmap.html">Roadmap</a></li>
+                    <li><a href="community.html">Community</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li>
+                        <a href="https://discord.gg/xDeDbSNDhq" class="bg-discord text-white px-4 py-2 rounded-md inline-block">
+                            <i class="fab fa-discord mr-2"></i>Join Discord
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="animated-gradient pt-16 md:pt-32 pb-12 md:pb-24">
+        <div class="max-w-7xl mx-auto px-4 md:px-6">
+            <div class="text-center text-white">
+                <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 scroll-animate">
+                    Product Roadmap
+                </h1>
+                <p class="text-base md:text-xl opacity-90 max-w-3xl mx-auto scroll-animate">
+                    See what we've built, what we're working on, and what's coming next in the Fuwalo journey.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap Timeline -->
+    <section class="py-10 md:py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="roadmap-timeline">
+                <!-- Q3 2023 - Beta Launch -->
+                <div class="roadmap-item completed scroll-animate">
+                    <div class="roadmap-content">
+                        <div class="bg-white rounded-2xl p-4 md:p-8 shadow-lg feature-card">
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3 md:mb-4 gap-2">
+                                <span class="bg-green-100 text-green-600 px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium">Q3 2023 - Completed</span>
+                                <div class="flex items-center text-green-600">
+                                    <i class="fas fa-check-circle mr-2 text-sm md:text-base"></i>
+                                    <span class="text-xs md:text-sm font-medium">Released</span>
+                                </div>
+                            </div>
+                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 md:mb-4">Beta Launch</h3>
+                            <p class="text-sm md:text-base text-gray-600 mb-4 md:mb-6">Launched Fuwalo beta with core piano functionality and basic multiplayer features.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                                <div class="bg-green-50 rounded-lg p-3 md:p-4">
+                                    <h4 class="text-sm md:text-base font-semibold text-gray-900 mb-2">Core Features</h4>
+                                    <ul class="text-xs md:text-sm text-gray-600 space-y-1">
+                                        <li>• Virtual piano engine</li>
+                                        <li>• MIDI file support</li>
+                                        <li>• User accounts</li>
+                                        <li>• Basic multiplayer</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-blue-50 rounded-lg p-3 md:p-4">
+                                    <h4 class="text-sm md:text-base font-semibold text-gray-900 mb-2">Impact</h4>
+                                    <ul class="text-xs md:text-sm text-gray-600 space-y-1">
+                                        <li>• 500+ beta users</li>
+                                        <li>• 4.8/5 user rating</li>
+                                        <li>• Active Discord community</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q4 2023 - Community Features -->
+                <div class="roadmap-item completed scroll-animate">
+                    <div class="roadmap-content">
+                        <div class="bg-white rounded-2xl p-4 md:p-8 shadow-lg feature-card">
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3 md:mb-4 gap-2">
+                                <span class="bg-green-100 text-green-600 px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium">Q4 2023 - Completed</span>
+                                <div class="flex items-center text-green-600">
+                                    <i class="fas fa-check-circle mr-2 text-sm md:text-base"></i>
+                                    <span class="text-xs md:text-sm font-medium">Released</span>
+                                </div>
+                            </div>
+                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 md:mb-4">Community & Sharing</h3>
+                            <p class="text-sm md:text-base text-gray-600 mb-4 md:mb-6">Enhanced community features and content sharing capabilities.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                                <div class="bg-green-50 rounded-lg p-3 md:p-4">
+                                    <h4 class="text-sm md:text-base font-semibold text-gray-900 mb-2">New Features</h4>
+                                    <ul class="text-xs md:text-sm text-gray-600 space-y-1">
+                                        <li>• Performance recording</li>
+                                        <li>• Community sharing</li>
+                                        <li>• User profiles</li>
+                                        <li>• Song library expansion</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-blue-50 rounded-lg p-3 md:p-4">
+                                    <h4 class="text-sm md:text-base font-semibold text-gray-900 mb-2">Impact</h4>
+                                    <ul class="text-xs md:text-sm text-gray-600 space-y-1">
+                                        <li>• 1,500+ beta users</li>
+                                        <li>• 1,000+ shared performances</li>
+                                        <li>• 45 countries represented</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q1 2024 - Play Store Prep -->
+                <div class="roadmap-item in-progress scroll-animate">
+                    <div class="roadmap-content">
+                        <div class="bg-white rounded-2xl p-4 md:p-8 shadow-lg feature-card">
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3 md:mb-4 gap-2">
+                                <span class="bg-yellow-100 text-yellow-600 px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium">Q1 2024 - In Progress</span>
+                                <div class="flex items-center text-yellow-600">
+                                    <i class="fas fa-cog fa-spin mr-2 text-sm md:text-base"></i>
+                                    <span class="text-xs md:text-sm font-medium">In Development</span>
+                                </div>
+                            </div>
+                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 md:mb-4">Play Store Launch Prep</h3>
+                            <p class="text-sm md:text-base text-gray-600 mb-4 md:mb-6">Preparing for official Play Store launch with enhanced features and performance improvements.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                                <div class="bg-yellow-50 rounded-lg p-3 md:p-4">
+                                    <h4 class="text-sm md:text-base font-semibold text-gray-900 mb-2">In Development</h4>
+                                    <ul class="text-xs md:text-sm text-gray-600 space-y-1">
+                                        <li>• Performance optimization</li>
+                                        <li>• Enhanced UI/UX</li>
+                                        <li>• Advanced lessons</li>
+                                        <li>• Play Store integration</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-blue-50 rounded-lg p-3 md:p-4">
+                                    <h4 class="text-sm md:text-base font-semibold text-gray-900 mb-2">Expected Impact</h4>
+                                    <ul class="text-xs md:text-sm text-gray-600 space-y-1">
+                                        <li>• 10,000+ pre-registrations</li>
+                                        <li>• Official app store presence</li>
+                                        <li>• Global accessibility</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q2 2024 - Play Store Launch -->
+                <div class="roadmap-item planned scroll-animate">
+                    <div class="roadmap-content">
+                        <div class="bg-white rounded-2xl p-4 md:p-8 shadow-lg feature-card">
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3 md:mb-4 gap-2">
+                                <span class="bg-gray-100 text-gray-600 px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium">Q2 2024 - Planned</span>
+                                <div class="flex items-center text-gray-600">
+                                    <i class="fas fa-clock mr-2 text-sm md:text-base"></i>
+                                    <span class="text-xs md:text-sm font-medium">Planned</span>
+                                </div>
+                            </div>
+                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 md:mb-4">Official Play Store Launch</h3>
+                            <p class="text-sm md:text-base text-gray-600 mb-4 md:mb-6">Official launch on Google Play Store with full feature set and global availability.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                                <div class="bg-gray-50 rounded-lg p-3 md:p-4">
+                                    <h4 class="text-sm md:text-base font-semibold text-gray-900 mb-2">Launch Features</h4>
+                                    <ul class="text-xs md:text-sm text-gray-600 space-y-1">
+                                        <li>• Full lesson system</li>
+                                        <li>• Advanced multiplayer</li>
+                                        <li>• AI feedback system</li>
+                                        <li>• Premium content</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-blue-50 rounded-lg p-3 md:p-4">
+                                    <h4 class="text-sm md:text-base font-semibold text-gray-900 mb-2">Expected Impact</h4>
+                                    <ul class="text-xs md:text-sm text-gray-600 space-y-1">
+                                        <li>• 50,000+ downloads</li>
+                                        <li>• 4.5+ star rating</li>
+                                        <li>• Featured app status</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q3 2024 - iOS & Advanced Features -->
+                <div class="roadmap-item planned scroll-animate">
+                    <div class="roadmap-content">
+                        <div class="bg-white rounded-2xl p-4 md:p-8 shadow-lg feature-card">
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3 md:mb-4 gap-2">
+                                <span class="bg-gray-100 text-gray-600 px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium">Q3 2024 - Planned</span>
+                                <div class="flex items-center text-gray-600">
+                                    <i class="fas fa-clock mr-2 text-sm md:text-base"></i>
+                                    <span class="text-xs md:text-sm font-medium">Planned</span>
+                                </div>
+                            </div>
+                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 md:mb-4">iOS Launch & Advanced Features</h3>
+                            <p class="text-sm md:text-base text-gray-600 mb-4 md:mb-6">Expanding to iOS and introducing advanced learning features powered by AI.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                                <div class="bg-gray-50 rounded-lg p-3 md:p-4">
+                                    <h4 class="text-sm md:text-base font-semibold text-gray-900 mb-2">New Features</h4>
+                                    <ul class="text-xs md:text-sm text-gray-600 space-y-1">
+                                        <li>• iOS app launch</li>
+                                        <li>• AI-powered feedback</li>
+                                        <li>• Personalized lessons</li>
+                                        <li>• Advanced analytics</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-blue-50 rounded-lg p-3 md:p-4">
+                                    <h4 class="text-sm md:text-base font-semibold text-gray-900 mb-2">Expected Impact</h4>
+                                    <ul class="text-xs md:text-sm text-gray-600 space-y-1">
+                                        <li>• Cross-platform availability</li>
+                                        <li>• 100,000+ users</li>
+                                        <li>• Enhanced learning outcomes</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q4 2024 - Social & Competition -->
+                <div class="roadmap-item planned scroll-animate">
+                    <div class="roadmap-content">
+                        <div class="bg-white rounded-2xl p-4 md:p-8 shadow-lg feature-card">
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3 md:mb-4 gap-2">
+                                <span class="bg-gray-100 text-gray-600 px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium">Q4 2024 - Planned</span>
+                                <div class="flex items-center text-gray-600">
+                                    <i class="fas fa-clock mr-2 text-sm md:text-base"></i>
+                                    <span class="text-xs md:text-sm font-medium">Planned</span>
+                                </div>
+                            </div>
+                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 md:mb-4">Social Features & Competitions</h3>
+                            <p class="text-sm md:text-base text-gray-600 mb-4 md:mb-6">Building a comprehensive social platform with competitions, leaderboards, and community events.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                                <div class="bg-gray-50 rounded-lg p-3 md:p-4">
+                                    <h4 class="text-sm md:text-base font-semibold text-gray-900 mb-2">Social Features</h4>
+                                    <ul class="text-xs md:text-sm text-gray-600 space-y-1">
+                                        <li>• Live competitions</li>
+                                        <li>• Global leaderboards</li>
+                                        <li>• Community events</li>
+                                        <li>• Teacher dashboard</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-blue-50 rounded-lg p-3 md:p-4">
+                                    <h4 class="text-sm md:text-base font-semibold text-gray-900 mb-2">Expected Impact</h4>
+                                    <ul class="text-xs md:text-sm text-gray-600 space-y-1">
+                                        <li>• 500,000+ users</li>
+                                        <li>• Active competition scene</li>
+                                        <li>• Educational partnerships</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Voting Section -->
+    <section class="py-10 md:py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8 md:mb-16 scroll-animate">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4">Help Shape Our Future</h2>
+                <p class="text-base md:text-xl text-gray-600 max-w-3xl mx-auto">Vote on features you'd like to see in future updates. Your input directly influences our development priorities.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                <div class="bg-white rounded-2xl p-4 md:p-6 shadow-lg feature-card scroll-animate">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3 md:mb-4 gap-2">
+                        <h3 class="text-base md:text-lg font-bold text-gray-900">AR Piano Lessons</h3>
+                        <span class="bg-purple-100 text-purple-600 px-2 py-1 rounded-full text-xs font-medium">High Priority</span>
+                    </div>
+                    <p class="text-xs md:text-sm text-gray-600 mb-3 md:mb-4">Augmented reality lessons that overlay finger positions and notes on your real piano.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs md:text-sm text-gray-500">1,247 votes</span>
+                        <button class="vote-button bg-gray-100 hover:bg-purple-500 hover:text-white text-gray-700 px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-300">
+                            <i class="fas fa-thumbs-up mr-1"></i> Vote
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 md:p-6 shadow-lg feature-card scroll-animate">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3 md:mb-4 gap-2">
+                        <h3 class="text-base md:text-lg font-bold text-gray-900">Live Streaming</h3>
+                        <span class="bg-blue-100 text-blue-600 px-2 py-1 rounded-full text-xs font-medium">Medium Priority</span>
+                    </div>
+                    <p class="text-xs md:text-sm text-gray-600 mb-3 md:mb-4">Stream your piano sessions live to friends and the community.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs md:text-sm text-gray-500">892 votes</span>
+                        <button class="vote-button bg-gray-100 hover:bg-purple-500 hover:text-white text-gray-700 px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-300">
+                            <i class="fas fa-thumbs-up mr-1"></i> Vote
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 md:p-6 shadow-lg feature-card scroll-animate">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3 md:mb-4 gap-2">
+                        <h3 class="text-base md:text-lg font-bold text-gray-900">Music Theory Lessons</h3>
+                        <span class="bg-green-100 text-green-600 px-2 py-1 rounded-full text-xs font-medium">High Priority</span>
+                    </div>
+                    <p class="text-xs md:text-sm text-gray-600 mb-3 md:mb-4">Comprehensive music theory education integrated into the learning experience.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs md:text-sm text-gray-500">1,156 votes</span>
+                        <button class="vote-button bg-gray-100 hover:bg-purple-500 hover:text-white text-gray-700 px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-300">
+                            <i class="fas fa-thumbs-up mr-1"></i> Vote
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 md:p-6 shadow-lg feature-card scroll-animate">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3 md:mb-4 gap-2">
+                        <h3 class="text-base md:text-lg font-bold text-gray-900">Offline Mode</h3>
+                        <span class="bg-yellow-100 text-yellow-600 px-2 py-1 rounded-full text-xs font-medium">Medium Priority</span>
+                    </div>
+                    <p class="text-xs md:text-sm text-gray-600 mb-3 md:mb-4">Download lessons and songs for offline practice without internet connection.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs md:text-sm text-gray-500">743 votes</span>
+                        <button class="vote-button bg-gray-100 hover:bg-purple-500 hover:text-white text-gray-700 px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-300">
+                            <i class="fas fa-thumbs-up mr-1"></i> Vote
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 md:p-6 shadow-lg feature-card scroll-animate">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3 md:mb-4 gap-2">
+                        <h3 class="text-base md:text-lg font-bold text-gray-900">Custom Instruments</h3>
+                        <span class="bg-pink-100 text-pink-600 px-2 py-1 rounded-full text-xs font-medium">Low Priority</span>
+                    </div>
+                    <p class="text-xs md:text-sm text-gray-600 mb-3 md:mb-4">Add support for other instruments like guitar, drums, and synthesizers.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs md:text-sm text-gray-500">456 votes</span>
+                        <button class="vote-button bg-gray-100 hover:bg-purple-500 hover:text-white text-gray-700 px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-300">
+                            <i class="fas fa-thumbs-up mr-1"></i> Vote
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 md:p-6 shadow-lg feature-card scroll-animate">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3 md:mb-4 gap-2">
+                        <h3 class="text-base md:text-lg font-bold text-gray-900">Progress Analytics</h3>
+                        <span class="bg-indigo-100 text-indigo-600 px-2 py-1 rounded-full text-xs font-medium">High Priority</span>
+                    </div>
+                    <p class="text-xs md:text-sm text-gray-600 mb-3 md:mb-4">Detailed analytics and progress tracking with personalized insights.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs md:text-sm text-gray-500">1,089 votes</span>
+                        <button class="vote-button bg-gray-100 hover:bg-purple-500 hover:text-white text-gray-700 px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-300">
+                            <i class="fas fa-thumbs-up mr-1"></i> Vote
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-8 md:mt-12">
+                <a href="https://discord.gg/xDeDbSNDhq" class="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white text-sm md:text-base font-bold py-2 md:py-3 px-4 md:px-8 rounded-full inline-flex items-center transition-all duration-300 transform hover:scale-105">
+                    <i class="fab fa-discord mr-2"></i> Join Discord to Suggest Features
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-10 md:py-20 animated-gradient">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="text-white scroll-animate">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Be Part of Our Journey</h2>
+                <p class="text-base md:text-xl opacity-90 mb-6 md:mb-8 max-w-3xl mx-auto">
+                    Pre-register now to be among the first to experience all these exciting features when we launch on Play Store.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
+                    <a href="index.html#download" class="bg-white text-purple-600 px-4 md:px-8 py-2 md:py-4 rounded-full text-sm md:text-base font-semibold hover:bg-opacity-95 shadow-lg transition-all duration-300 transform hover:scale-105">
+                        <i class="fab fa-google-play mr-2"></i> Pre-register Now
+                    </a>
+                    <a href="community.html" class="glassmorphism text-white px-4 md:px-8 py-2 md:py-4 rounded-full text-sm md:text-base font-semibold hover:bg-opacity-20 shadow-lg transition-all duration-300 transform hover:scale-105">
+                        <i class="fas fa-users mr-2"></i> Join Community
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-music text-purple-400 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold">Fuwalo</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">Your piano playground for learning, playing, and connecting with music lovers worldwide.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://x.com/fuwalo_ai" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://discord.gg/xDeDbSNDhq" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Product</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html#features" class="text-gray-400 hover:text-white">Features</a></li>
+                        <li><a href="roadmap.html" class="text-gray-400 hover:text-white">Roadmap</a></li>
+                        <li><a href="faq.html" class="text-gray-400 hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Company</h3>
+                    <ul class="space-y-2">
+                        <li><a href="about.html" class="text-gray-400 hover:text-white">About</a></li>
+                        <li><a href="community.html" class="text-gray-400 hover:text-white">Community</a></li>
+                        <li><a href="privacy.html" class="text-gray-400 hover:text-white">Privacy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                <p class="text-gray-400">© 2024 Fuwalo. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Animation Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all scroll-animate elements
+        document.querySelectorAll('.scroll-animate').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true' || false;
+            mobileMenuButton.setAttribute('aria-expanded', !expanded);
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Feature Voting
+        document.querySelectorAll('.vote-button').forEach(button => {
+            button.addEventListener('click', () => {
+                if (!button.classList.contains('voted')) {
+                    button.classList.add('voted');
+                    button.innerHTML = '<i class="fas fa-check mr-1"></i> Voted';
+                    
+                    // Update vote count (simulate)
+                    const voteCount = button.previousElementSibling;
+                    const currentCount = parseInt(voteCount.textContent.replace(/,/g, ''));
+                    voteCount.textContent = (currentCount + 1).toLocaleString();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
+
