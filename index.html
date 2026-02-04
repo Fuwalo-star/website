@@ -319,6 +319,63 @@
             }
         }
 
+        /* Hero video background (variation) */
+        .hero-video-bg {
+            position: relative;
+            background: linear-gradient(152deg, #5B4B8A 0%, #4A3D6E 100%);
+        }
+        .hero-video-bg .hero-bg-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+        .hero-video-bg .hero-bg-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(91, 75, 138, 0.75) 0%, rgba(74, 61, 110, 0.85) 100%);
+            z-index: 1;
+        }
+        .hero-video-bg .hero-bg-content {
+            position: relative;
+            z-index: 10;
+        }
+        .hero-video-bg .floating-note {
+            z-index: 5;
+        }
+        .chibi-sticker {
+            position: absolute;
+            right: 2%;
+            bottom: 5%;
+            width: clamp(100px, 18vw, 180px);
+            height: auto;
+            z-index: 2;
+            animation: chibi-float 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes chibi-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        @media (max-width: 640px) {
+            .chibi-sticker { right: 0; bottom: 2%; width: clamp(80px, 22vw, 120px); }
+        }
+        .here-pointer-sticker {
+            position: absolute;
+            top: 0;
+            right: 8%;
+            transform: translateY(-55%) rotate(-6deg);
+            width: clamp(80px, 14vw, 140px);
+            height: auto;
+            z-index: 10;
+            pointer-events: none;
+        }
+        @media (max-width: 640px) {
+            .here-pointer-sticker { right: 2%; width: clamp(70px, 20vw, 100px); transform: translateY(-50%) rotate(-5deg); }
+        }
+
         .floating-note {
             position: absolute;
             color: rgba(255, 255, 255, 0.18);
@@ -720,14 +777,18 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="animated-gradient pt-16 md:pt-32 pb-12 md:pb-24 relative overflow-hidden">
+    <!-- Hero Section (video background variation) -->
+    <section class="hero-video-bg pt-16 md:pt-32 pb-12 md:pb-24 relative overflow-hidden">
+        <video class="hero-bg-video" autoplay muted loop playsinline aria-hidden="true">
+            <source src="test/video.mp4" type="video/mp4">
+        </video>
+        <div class="hero-bg-overlay" aria-hidden="true"></div>
         <!-- Subtle floating notes (static set, no spawn) -->
         <div class="floating-note" style="left: 12%; animation-delay: 0s; font-size: 0.95rem;"><i class="fas fa-music" aria-hidden="true"></i></div>
         <div class="floating-note" style="left: 78%; animation-delay: 6s; font-size: 1.1rem;"><i class="fas fa-music" aria-hidden="true"></i></div>
         <div class="floating-note" style="left: 48%; animation-delay: 12s; font-size: 0.85rem;"><i class="fas fa-music" aria-hidden="true"></i></div>
 
-        <div class="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 hero-bg-content">
             <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12">
                 <div class="md:w-1/2 space-y-4 md:space-y-8 text-center md:text-left scroll-animate">
                     <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold text-white">
@@ -1083,16 +1144,18 @@
     </section>
 
     <!-- Download Section -->
-    <section id="download" class="py-14 md:py-24 download-section">
+    <section id="download" class="py-14 md:py-24 download-section relative overflow-visible">
+        <img src="sticker.png" alt="" class="chibi-sticker" aria-hidden="true">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-10 md:mb-14 scroll-animate">
                 <h2 class="text-2xl md:text-4xl font-bold text-slate-900 mb-3 md:mb-4 tracking-tight">Get Fuwalo</h2>
                 <p class="text-base md:text-lg text-slate-600 max-w-2xl mx-auto">Download the beta and start playing. Join Discord for updates and community.</p>
             </div>
 
-            <div class="max-w-2xl mx-auto">
+            <div class="max-w-2xl mx-auto relative">
                 <!-- Beta APK Download -->
-                <div class="bg-white rounded-2xl p-6 md:p-10 shadow-xl border border-slate-200/80 platform-card scroll-animate">
+                <div class="bg-white rounded-2xl p-6 md:p-10 shadow-xl border border-slate-200/80 platform-card scroll-animate relative overflow-visible">
+                    <img src="here.png" alt="" class="here-pointer-sticker" aria-hidden="true">
                     <div class="flex flex-col md:flex-row items-center gap-6 md:gap-10">
                         <div class="text-center md:text-left flex-1">
                             <div class="bg-violet-100 w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center mb-4 md:mb-5 mx-auto md:mx-0 text-violet-600">
